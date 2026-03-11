@@ -7,7 +7,7 @@ void check_player(t_game *game, int x, int y)
 
 	if (game->map[y][x] == 'N')
     {
-		game->player->px = x * TILE_LEN + (TILE_LEN / 2); 
+		game->player->px = x * TILE_LEN + (TILE_LEN / 2);
 		game->player->py = y * TILE_LEN + (TILE_LEN / 2);
 		game->player->pa = 3 * PI / 2;
         game->player->fovla = game->player->pa - FOV;

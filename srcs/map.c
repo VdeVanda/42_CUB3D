@@ -50,16 +50,16 @@ int count_map_rows(char *file)
     return(len);
 }
 
-char **load_map(char *file, int height)
+char **load_maps(char *file, int height)
 {
     char **map = malloc(sizeof(char *) * (height + 1));
     if (!map)
         return (NULL);
-    
+
     int k = 0;
     while (k <= height)
         map[k++] = NULL;
-    
+
     int i = 0;
     int fd = open(file, O_RDONLY);
     if (fd < 0)
@@ -67,13 +67,13 @@ char **load_map(char *file, int height)
         free(map);
         return (NULL);
     }
-    
+
     char *line;
     while ((line = get_next_line(fd)))
     {
         if (i < height)
             map[i] = line;
-        else 
+        else
             free(line);
         i++;
     }
@@ -82,5 +82,5 @@ char **load_map(char *file, int height)
 
 void render_map(t_game *game)
 {
-    mlx_put_image_to_window(game->mlx_2d, game->win_2d, game->world_2d->img, 0, 0);
+    mlx_put_image_to_window(game->mlx_3d, game->win_3d, game->world_3d->img, 0, 0);
 }

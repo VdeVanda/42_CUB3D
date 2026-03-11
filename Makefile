@@ -1,6 +1,10 @@
 NAME = cub3D
 
-SRCS = debug.c srcs/init.c srcs/map.c srcs/player.c srcs/move.c srcs/rays.c srcs/create.c srcs/walls.c srcs/cleanup.c
+SRCS = debug.c srcs/init.c srcs/map.c srcs/player.c srcs/move.c srcs/rays.c srcs/create.c \
+	   srcs/walls.c srcs/cleanup.c \
+	   srcs/parsing/check_map.c srcs/parsing/map_loading.c srcs/parsing/parse_colors.c \
+	   srcs/parsing/parse_header.c srcs/parsing/parse_main.c srcs/parsing/parse_utils.c \
+
 
 OBJS = $(SRCS:.c=.o)
 

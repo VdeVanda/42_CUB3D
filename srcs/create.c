@@ -47,7 +47,7 @@ void create_map(t_game *game, int height)
     int y = 0;
     while (i < height)
     {
-        if (!game->map[i]) 
+        if (!game->map[i])
             break;
 		j = 0;
 		x = 0;
@@ -55,7 +55,7 @@ void create_map(t_game *game, int height)
         {
             if (game->map[i][j] == '1')
             {
-                x++;                
+                x++;
             }
 			if (strchr("0NSEW", game->map[i][j]))
 			{
@@ -67,4 +67,30 @@ void create_map(t_game *game, int height)
         y++;
         i++;
     }
+}
+
+static int	set_texture(t_game *cub, t_img *tex, char *path)
+{
+	tex->img = mlx_xpm_file_to_image(cub->mlx_3d, path,
+			&tex->w, &tex->h);
+	if (!tex->img)
+		return (0);
+	tex->adr = mlx_get_data_addr(tex->img, &tex->bits_per_pixel,
+			&tex->line_len, &tex->endian);
+	if (!tex->adr)
+		return (0);
+	return (1);
+}
+
+int	load_textures(t_game *cub)
+{
+	if (!set_texture(cub, &cub->tex_wall[0], cub->tex_paths[0]))
+		return (0);
+	if (!set_texture(cub, &cub->tex_wall[1], cub->tex_paths[1]))
+		return (0);
+	if (!set_texture(cub, &cub->tex_wall[2], cub->tex_paths[2]))
+		return (0);
+	if (!set_texture(cub, &cub->tex_wall[3], cub->tex_paths[3]))
+		return (0);
+	return (1);
 }

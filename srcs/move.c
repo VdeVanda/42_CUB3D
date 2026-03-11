@@ -80,6 +80,10 @@ int key_press(int keycode, t_game *game)
         game->key_left = 1;
     if (keycode == 65363)
         game->key_right = 1;
+    if (keycode == 65362)
+        game->key_up = 1;
+    if (keycode == 65364)
+        game->key_down = 1;
     if (keycode == KEY_ESC)
         close_window(game);
     return (0);
@@ -99,6 +103,10 @@ int key_release(int keycode, t_game *game)
         game->key_left = 0;
     if (keycode == 65363)
         game->key_right = 0;
+    if (keycode == 65362)
+        game->key_up = 0;
+    if (keycode == 65364)
+        game->key_down = 0;
     return (0);
 }
 
@@ -117,5 +125,9 @@ int game_loop(t_game *game)
         rotate_left(game);
     if (game->key_right)
         rotate_right(game);
+    if (game->key_up)
+        move_front(game);
+    if (game->key_down)
+        move_back(game);
     return (0);
 }

@@ -26,15 +26,15 @@ void free_texture(t_game *game, t_img *tex)
 
 void free_textures(t_game *game)
 {
-    if (game->tex_ceiling)
-        free_texture(game, game->tex_ceiling);
-    if (game->tex_wall)
-        free_texture(game, game->tex_wall);
-    if (game->tex_floor)
-        free_texture(game, game->tex_floor);
-    game->tex_ceiling = NULL;
-    game->tex_wall = NULL;
-    game->tex_floor = NULL;
+    int i;
+
+    i = 0;
+    while (i < 4)
+    {
+        if (game->tex_wall[i].img && game->mlx_3d)
+            mlx_destroy_image(game->mlx_3d, game->tex_wall[i].img);
+        i++;
+    }
 }
 
 void free_world(t_game *game)
@@ -52,47 +52,53 @@ void cleanup_game(t_game *game)
 {
     if (!game)
         return;
-    
+
     if (game->rays)
     {
         free(game->rays);
         game->rays = NULL;
     }
-    
+
     if (game->tex_float)
     {
         free(game->tex_float);
         game->tex_float = NULL;
     }
-    
+
+    if (game->wall_direction)
+    {
+        free(game->wall_direction);
+        game->wall_direction = NULL;
+    }
+
     free_textures(game);
     free_world(game);
-    
+
     if (game->map)
     {
         free_map(game->map);
         game->map = NULL;
     }
-    
+
     if (game->win_3d && game->mlx_3d)
     {
         mlx_destroy_window(game->mlx_3d, game->win_3d);
         game->win_3d = NULL;
     }
-    
+
     if (game->mlx_3d)
     {
         mlx_destroy_display(game->mlx_3d);
         free(game->mlx_3d);
         game->mlx_3d = NULL;
     }
-    
+
     if (game->player)
     {
         free(game->player);
         game->player = NULL;
     }
-    
+
     free(game);
 }
 
