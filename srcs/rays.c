@@ -3,26 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vaires-m <vaires-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 13:00:47 by vaires-m          #+#    #+#             */
-/*   Updated: 2026/03/24 13:00:47 by vaires-m         ###   ########.fr       */
+/*   Updated: 2026/03/25 17:56:46 by vabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
 
-static void	handle_corner_hit(t_ray *ray, float angle, int x_mod, int y_mod,
-				int tile_x, int tile_y, int prev_tile_x, int prev_tile_y)
+static void	handle_corner_hit(t_ray *ray, float angle, int *tiles)
 {
-	float	dx_dist;
-	float	dy_dist;
+	int		x_mod;
+	int		y_mod;
 
-	dx_dist = fabs(cos(angle));
-	dy_dist = fabs(sin(angle));
-	if (dx_dist > dy_dist)
+	x_mod = ((tiles[0] % TILE_LEN) + TILE_LEN) % TILE_LEN;
+	y_mod = ((tiles[1] % TILE_LEN) + TILE_LEN) % TILE_LEN;
+	if (fabs(cos(angle)) > fabs(sin(angle)))
 	{
-		if (tile_x < prev_tile_x)
+		if (tiles[2] < tiles[4])
 			ray->wall_dir = WALL_EAST;
 		else
 			ray->wall_dir = WALL_WEST;
@@ -30,7 +29,7 @@ static void	handle_corner_hit(t_ray *ray, float angle, int x_mod, int y_mod,
 	}
 	else
 	{
-		if (tile_y < prev_tile_y)
+		if (tiles[3] < tiles[5])
 			ray->wall_dir = WALL_SOUTH;
 		else
 			ray->wall_dir = WALL_NORTH;
@@ -63,37 +62,33 @@ static void	handle_same_tile(t_ray *ray, float angle, int x_mod, int y_mod)
 	}
 }
 
-static void	set_wall_face(t_ray *ray, t_game *game, float angle, int *tiles)
+static void	set_wall_face(t_ray *ray, float angle, int *tiles)
 {
-	int	x_mod;
-	int	y_mod;
+	int		x_mod;
+	int		y_mod;
 
-	x_mod = tiles[0] % TILE_LEN;
-	y_mod = tiles[1] % TILE_LEN;
-	if (x_mod < 0)
-		x_mod += TILE_LEN;
-	if (y_mod < 0)
-		y_mod += TILE_LEN;
-	if (x_mod >= TILE_LEN)
-		x_mod = TILE_LEN - 1;
-	if (y_mod >= TILE_LEN)
-		y_mod = TILE_LEN - 1;
+	x_mod = ((tiles[0] % TILE_LEN) + TILE_LEN) % TILE_LEN;
+	y_mod = ((tiles[1] % TILE_LEN) + TILE_LEN) % TILE_LEN;
 	if (tiles[2] != tiles[4] && tiles[3] != tiles[5])
-		handle_corner_hit(ray, angle, x_mod, y_mod, tiles[2], tiles[3],
-			tiles[4], tiles[5]);
+		handle_corner_hit(ray, angle, tiles);
 	else if (tiles[2] < tiles[4] || tiles[2] > tiles[4])
 	{
-		ray->wall_dir = (tiles[2] < tiles[4]) ? WALL_EAST : WALL_WEST;
+		if (tiles[2] < tiles[4])
+			ray->wall_dir = WALL_EAST;
+		else
+			ray->wall_dir = WALL_WEST;
 		ray->tex_x = (float)y_mod / TILE_LEN;
 	}
 	else if (tiles[3] < tiles[5] || tiles[3] > tiles[5])
 	{
-		ray->wall_dir = (tiles[3] < tiles[5]) ? WALL_SOUTH : WALL_NORTH;
+		if (tiles[3] < tiles[5])
+			ray->wall_dir = WALL_SOUTH;
+		else
+			ray->wall_dir = WALL_NORTH;
 		ray->tex_x = (float)x_mod / TILE_LEN;
 	}
 	else
 		handle_same_tile(ray, angle, x_mod, y_mod);
-	(void)game;
 }
 
 t_ray	update_ray(t_game *game, float angle, int x, int y)
@@ -119,7 +114,7 @@ t_ray	update_ray(t_game *game, float angle, int x, int y)
 		{
 			tiles[4] = prev[0] / TILE_LEN;
 			tiles[5] = prev[1] / TILE_LEN;
-			set_wall_face(&ray, game, angle, tiles);
+			set_wall_face(&ray, angle, tiles);
 			ray.dist = v_len;
 			return (ray);
 		}

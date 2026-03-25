@@ -6,7 +6,7 @@
 /*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 13:00:56 by vaires-m          #+#    #+#             */
-/*   Updated: 2026/03/25 12:48:31 by vabatist         ###   ########.fr       */
+/*   Updated: 2026/03/25 15:53:35 by vabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,34 +30,6 @@ unsigned int	get_color(t_img *img, int x, int y)
 		return (0);
 	dest = img->adr + (y * img->line_len) + (x * (img->bits_per_pixel / 8));
 	return (*(unsigned int *)dest);
-}
-
-static void	draw_cube_line(t_img *img, int params[3], int color)
-{
-	int	i;
-
-	i = 0;
-	while (i < params[2])
-	{
-		my_mlx_pixel_put(img, params[0] + i, params[1], color);
-		i++;
-	}
-}
-
-void	add_cube(t_img *img, int params[4], int color)
-{
-	int	j;
-	int	line_params[3];
-
-	j = 0;
-	line_params[2] = params[0];
-	while (j < params[1])
-	{
-		line_params[0] = params[2];
-		line_params[1] = params[3] + j;
-		draw_cube_line(img, line_params, color);
-		j++;
-	}
 }
 
 void	create_map(t_game *game, int height)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vaires-m <vaires-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 13:01:10 by vaires-m          #+#    #+#             */
-/*   Updated: 2026/03/24 13:01:11 by vaires-m         ###   ########.fr       */
+/*   Updated: 2026/03/25 17:57:31 by vabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ void			render_strips(t_game *game);
 unsigned int	get_color(t_img *img, int x, int y);
 void			create_map(t_game *game, int height);
 void			my_mlx_pixel_put(t_img *img, int x, int y, int color);
-void			add_cube(t_img *img, int params[4], int color);
 int				load_textures(t_game *cub);
 
 /* srcs/init.c */
@@ -130,24 +129,24 @@ int				init_structs(t_game **game);
 int				count_map_col(char *file);
 int				count_map_rows(char *file);
 char			**load_maps(char *file, int height);
-void			print_map(t_game *game, int height);
-void			render_map(t_game *game);
 
 /* srcs/player.c */
 void			check_player(t_game *game, int x, int y);
 
 /* srcs/rays.c*/
 void			update_rays(t_game *game);
-void			render_rays(t_game *game, int color);
 
 /* srcs/move.c*/
+int				game_loop(t_game *game);
+
+/* srcs/input.c*/
 int				key_press(int keycode, t_game *game);
 int				key_release(int keycode, t_game *game);
-int				game_loop(t_game *game);
+void			rotate_left(t_game *game);
+void			rotate_right(t_game *game);
 
 /* srcs/cleanup.c */
 void			free_map(char **map);
-void			free_texture(t_game *game, t_img *tex);
 void			free_textures(t_game *game);
 void			free_world(t_game *game);
 void			cleanup_game(t_game *game);

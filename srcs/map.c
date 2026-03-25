@@ -3,34 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vaires-m <vaires-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 13:00:52 by vaires-m          #+#    #+#             */
-/*   Updated: 2026/03/24 13:00:53 by vaires-m         ###   ########.fr       */
+/*   Updated: 2026/03/25 16:39:36 by vabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
-
-void	print_map(t_game *game, int height)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (i < height)
-	{
-		j = 0;
-		while (game->map[i][j])
-		{
-			printf("%c ", game->map[i][j]);
-			j++;
-		}
-		printf("\n");
-		i++;
-	}
-}
 
 int	count_map_col(char *file)
 {
@@ -42,11 +22,13 @@ int	count_map_col(char *file)
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		return (0);
-	while ((line = get_next_line(fd)))
+	line = get_next_line(fd);
+	while (line)
 	{
 		if (strlen(line) > len)
 			len = strlen(line);
 		free(line);
+		line = get_next_line(fd);
 	}
 	close(fd);
 	return (len - 1);
@@ -62,22 +44,40 @@ int	count_map_rows(char *file)
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		return (0);
-	while ((line = get_next_line(fd)))
+	line = get_next_line(fd);
+	while (line)
 	{
 		free(line);
 		len++;
+		line = get_next_line(fd);
 	}
 	close(fd);
 	return (len);
+}
+
+static void	read_map_lines(int fd, char **map, int height)
+{
+	int		i;
+	char	*line;
+
+	i = 0;
+	line = get_next_line(fd);
+	while (line)
+	{
+		if (i < height)
+			map[i] = line;
+		else
+			free(line);
+		i++;
+		line = get_next_line(fd);
+	}
 }
 
 char	**load_maps(char *file, int height)
 {
 	char	**map;
 	int		k;
-	int		i;
 	int		fd;
-	char	*line;
 
 	map = malloc(sizeof(char *) * (height + 1));
 	if (!map)
@@ -85,26 +85,13 @@ char	**load_maps(char *file, int height)
 	k = 0;
 	while (k <= height)
 		map[k++] = NULL;
-	i = 0;
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 	{
 		free(map);
 		return (NULL);
 	}
-	while ((line = get_next_line(fd)))
-	{
-		if (i < height)
-			map[i] = line;
-		else
-			free(line);
-		i++;
-	}
+	read_map_lines(fd, map, height);
+	close(fd);
 	return (map);
-}
-
-void	render_map(t_game *game)
-{
-	mlx_put_image_to_window(game->mlx_3d, game->win_3d, game->world_3d->img, 0,
-		0);
 }

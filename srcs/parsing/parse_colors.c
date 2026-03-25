@@ -6,7 +6,7 @@
 /*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 12:36:59 by vabatist          #+#    #+#             */
-/*   Updated: 2026/03/25 12:06:33 by vabatist         ###   ########.fr       */
+/*   Updated: 2026/03/25 15:52:50 by vabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,15 @@ static int	is_valid_color_str(char *str)
 /**
  * Parses a color string in the format "R,G,B" and returns the corresponding
  */
-static unsigned int	parse_color_value(char *str)
+static int	parse_color_value(char *str)
 {
-	char			**rgb;
-	int				i;
-	unsigned int	r;
-	unsigned int	g;
-	unsigned int	b;
-	char			*trimmed;
+	char	**rgb;
+	int		i;
+	int		r;
+	int		g;
+	int		b;
 
-	trimmed = ft_strtrim(str, "\n\r\t ");
-	if (!trimmed)
-		return (-1);
-	rgb = ft_split(trimmed, ',');
-	free(trimmed);
+	rgb = ft_split(str, ',');
 	if (!rgb)
 		return (-1);
 	i = 0;
@@ -56,11 +51,11 @@ static unsigned int	parse_color_value(char *str)
 	if (i != 3 || !is_valid_color_str(rgb[0])
 		|| !is_valid_color_str(rgb[1]) || !is_valid_color_str(rgb[2]))
 		return (free_str_arr(rgb), -1);
-	r = (unsigned int)ft_atoi(rgb[0]);
-	g = (unsigned int)ft_atoi(rgb[1]);
-	b = (unsigned int)ft_atoi(rgb[2]);
+	r = ft_atoi(rgb[0]);
+	g = ft_atoi(rgb[1]);
+	b = ft_atoi(rgb[2]);
 	free_str_arr(rgb);
-	if (r > 255 || g > 255 || b > 255)
+	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
 		return (-1);
 	return ((r << 16) | (g << 8) | b);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vaires-m <vaires-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/24 13:00:41 by vaires-m          #+#    #+#             */
-/*   Updated: 2026/03/24 13:00:43 by vaires-m         ###   ########.fr       */
+/*   Created: 2026/03/24 13:00:58 by vaires-m          #+#    #+#             */
+/*   Updated: 2026/03/25 17:15:28 by vabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	free_parsing_data(t_game *cub)
 			i++;
 		}
 		free(cub->map);
+		cub->map = NULL;
 	}
 }
 
@@ -54,12 +55,11 @@ static int	init_game(t_game **game, char *map_file)
 		return (free_parsing_data(*game), cleanup_game(*game), 1);
 	(*game)->mlx_3d = mlx_init();
 	if (!(*game)->mlx_3d)
-		return (ft_printf("Error\nMLX init failed.\n"),
-			cleanup_game(*game), 1);
+		return (ft_printf("Error\nMLX init failed.\n"), cleanup_game(*game), 1);
 	init_worlds(*game);
 	if (!(*game)->world_3d || !(*game)->world_3d->img)
-		return (ft_printf("Error\nWorld init failed.\n"),
-			cleanup_game(*game), 1);
+		return (ft_printf("Error\nWorld init failed.\n"), cleanup_game(*game),
+			1);
 	init_texs(*game);
 	if (!(*game)->tex_wall[0].img)
 		return (ft_printf("Error\nTexture loading failed.\n"),
@@ -78,8 +78,8 @@ static int	load_game_map(t_game *game, char *map_file)
 	game->map_cols = count_map_col(map_file);
 	game->map = load_maps(map_file, game->map_rows);
 	if (!game->map)
-		return (ft_printf("Error\nMap failed to load\n"),
-			cleanup_game(game), 1);
+		return (ft_printf("Error\nMap failed to load\n"), cleanup_game(game),
+			1);
 	create_map(game, count_map_rows(map_file));
 	update_rays(game);
 	render_strips(game);

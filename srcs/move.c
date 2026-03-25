@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vaires-m <vaires-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 13:00:50 by vaires-m          #+#    #+#             */
-/*   Updated: 2026/03/24 13:00:51 by vaires-m         ###   ########.fr       */
+/*   Updated: 2026/03/25 16:32:20 by vabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,56 +54,6 @@ void	move_back(t_game *game)
 	game->player->py -= y;
 }
 
-void	rotate_left(t_game *game)
-{
-	game->player->pa -= game->player->speed / 2;
-	game->player->fovra = game->player->pa + FOV;
-	game->player->fovla = game->player->pa - FOV;
-}
-
-void	rotate_right(t_game *game)
-{
-	game->player->pa += game->player->speed / 2;
-	game->player->fovra = game->player->pa + FOV;
-	game->player->fovla = game->player->pa - FOV;
-}
-
-int	key_press(int keycode, t_game *game)
-{
-	if (keycode == KEY_W)
-		game->key_w = 1;
-	if (keycode == KEY_A)
-		game->key_a = 1;
-	if (keycode == KEY_S)
-		game->key_s = 1;
-	if (keycode == KEY_D)
-		game->key_d = 1;
-	if (keycode == KEY_LEFT)
-		game->key_left = 1;
-	if (keycode == KEY_RIGHT)
-		game->key_right = 1;
-	if (keycode == KEY_ESC)
-		close_window(game);
-	return (0);
-}
-
-int	key_release(int keycode, t_game *game)
-{
-	if (keycode == KEY_W)
-		game->key_w = 0;
-	if (keycode == KEY_A)
-		game->key_a = 0;
-	if (keycode == KEY_S)
-		game->key_s = 0;
-	if (keycode == KEY_D)
-		game->key_d = 0;
-	if (keycode == KEY_LEFT)
-		game->key_left = 0;
-	if (keycode == KEY_RIGHT)
-		game->key_right = 0;
-	return (0);
-}
-
 void	move_strafe_left(t_game *game)
 {
 	float	x;
@@ -148,41 +98,21 @@ void	move_strafe_right(t_game *game)
 
 int	game_loop(t_game *game)
 {
-	int	moved;
-
-	moved = 0;
 	game->player->speed = 0.25;
 	if (game->key_w)
-	{
 		move_front(game);
-		moved = 1;
-	}
 	if (game->key_s)
-	{
 		move_back(game);
-		moved = 1;
-	}
 	if (game->key_a)
-	{
 		move_strafe_left(game);
-		moved = 1;
-	}
 	if (game->key_d)
-	{
 		move_strafe_right(game);
-		moved = 1;
-	}
 	if (game->key_left)
-	{
 		rotate_left(game);
-		moved = 1;
-	}
 	if (game->key_right)
-	{
 		rotate_right(game);
-		moved = 1;
-	}
-	if (moved)
+	if (game->key_w || game->key_s || game->key_a || game->key_d
+		|| game->key_left || game->key_right)
 	{
 		update_rays(game);
 		render_strips(game);

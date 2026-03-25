@@ -174,3 +174,9 @@ The program displays `Error\n` followed by an explicit error message when:
         ├── parse_main.c
         └── parse_utils.c
 ```
+
+## Author
+
+**vabatist** - 42 Student
+**vaires-m** - 42 Student
+---
