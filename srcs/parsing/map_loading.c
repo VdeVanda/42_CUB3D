@@ -6,15 +6,17 @@
 /*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 17:49:42 by vabatist          #+#    #+#             */
-/*   Updated: 2026/03/11 19:20:13 by vabatist         ###   ########.fr       */
+/*   Updated: 2026/03/25 12:08:47 by vabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3D.h"
 
 /**
- * Counts the number of rows and the maximum number of columns in the map section of the .cub file.
- * It reads through the file, skipping header lines, and updates the game struct with the dimensions.
+ * Counts the number of rows and the maximum number of columns
+ * in the map section of the .cub file.
+ * It reads through the file, skipping header lines,
+ * and updates the game struct with the dimensions.
  */
 static int	count_remaining_lines(t_game *cub, int fd)
 {
@@ -42,8 +44,10 @@ static int	count_remaining_lines(t_game *cub, int fd)
 }
 
 /**
- * Pads a line with spaces to ensure it matches the maximum column width of the map.
- * This is necessary for consistent indexing when rendering the map later.
+ * Pads a line with spaces to ensure it matches
+ * the maximum column width of the map.
+ * This is necessary for consistent indexing
+ * when rendering the map later.
  */
 static void	skip_header_lines(int fd)
 {
@@ -64,8 +68,10 @@ static void	skip_header_lines(int fd)
 }
 
 /**
- * Pads a line with spaces to ensure it matches the maximum column width of the map.
- * This is necessary for consistent indexing when rendering the map later.
+ * Pads a line with spaces to ensure it matches
+ * the maximum column width of the map.
+ * This is necessary for consistent indexing
+ * when rendering the map later.
  */
 static int	fill_map_rows(t_game *cub, int fd)
 {
@@ -95,7 +101,8 @@ static int	fill_map_rows(t_game *cub, int fd)
 }
 
 /**
- * Loads the map from the .cub file into the game struct. It first skips the header lines,
+ * Loads the map from the .cub file into the game struct.
+ * It first skips the header lines,
  * then reads each line of the map,
  */
 int	load_map(t_game *cub, char *filename)
@@ -116,11 +123,12 @@ int	load_map(t_game *cub, char *filename)
 }
 
 /**
- * Counts the number of rows and the maximum number of columns in the map section of the .cub file.
- * It reads through the file, skipping header lines, and updates the game struct with the dimensions
+ * Counts the number of rows and the maximum number of columns
+ * in the map section of the .cub file.
+ * It reads through the file, skipping header lines,
+ * and updates the game struct with the dimensions
  */
 int	count_map_dimensions(t_game *cub, int fd)
 {
 	return (count_remaining_lines(cub, fd));
 }
-

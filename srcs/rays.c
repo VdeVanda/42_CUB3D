@@ -1,79 +1,149 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rays.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vaires-m <vaires-m@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/24 13:00:47 by vaires-m          #+#    #+#             */
+/*   Updated: 2026/03/24 13:00:47 by vaires-m         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3D.h"
 
-int update_ray(t_game *game, float angle, int x, int y, float *wall_x_text, int *wall_dir)
+static void	handle_corner_hit(t_ray *ray, float angle, int x_mod, int y_mod,
+				int tile_x, int tile_y, int prev_tile_x, int prev_tile_y)
 {
-    int max_len = 1000;
-    int v_len = 0;
-    int new_x;
-    int new_y;
-    int x_mod;
-    int y_mod;
-    int dist_west, dist_east, dist_north, dist_south;
-    int min_dist;
+	float	dx_dist;
+	float	dy_dist;
 
-    while (v_len < max_len)
-    {
-        new_x = x + (cos(angle) * v_len);
-        new_y = y + (sin(angle) * v_len);
-
-        if (game->map[new_y / TILE_LEN][new_x / TILE_LEN] == '1')
-        {
-            x_mod = new_x % TILE_LEN;
-            y_mod = new_y % TILE_LEN;
-            if (x_mod < 0) x_mod += TILE_LEN;
-            if (y_mod < 0) y_mod += TILE_LEN;
-
-            // Calculate distance to each boundary
-            dist_west = x_mod;
-            dist_east = TILE_LEN - x_mod;
-            dist_north = y_mod;
-            dist_south = TILE_LEN - y_mod;
-
-            // Find which boundary is actually closest
-            min_dist = dist_west;
-            *wall_dir = WALL_WEST;
-            *wall_x_text = ((float)y_mod / TILE_LEN);
-
-            if (dist_east < min_dist)
-            {
-                min_dist = dist_east;
-                *wall_dir = WALL_EAST;
-                *wall_x_text = ((float)y_mod / TILE_LEN);
-            }
-            if (dist_north < min_dist)
-            {
-                min_dist = dist_north;
-                *wall_dir = WALL_NORTH;
-                *wall_x_text = ((float)x_mod / TILE_LEN);
-            }
-            if (dist_south < min_dist)
-            {
-                min_dist = dist_south;
-                *wall_dir = WALL_SOUTH;
-                *wall_x_text = ((float)x_mod / TILE_LEN);
-            }
-            return (v_len * cos(angle - game->player->pa));
-        }
-        v_len++;
-    }
-    *wall_dir = WALL_NORTH;
-    return (v_len * cos(angle - game->player->pa));
+	dx_dist = fabs(cos(angle));
+	dy_dist = fabs(sin(angle));
+	if (dx_dist > dy_dist)
+	{
+		if (tile_x < prev_tile_x)
+			ray->wall_dir = WALL_EAST;
+		else
+			ray->wall_dir = WALL_WEST;
+		ray->tex_x = (float)y_mod / TILE_LEN;
+	}
+	else
+	{
+		if (tile_y < prev_tile_y)
+			ray->wall_dir = WALL_SOUTH;
+		else
+			ray->wall_dir = WALL_NORTH;
+		ray->tex_x = (float)x_mod / TILE_LEN;
+	}
 }
 
-void update_rays(t_game *game)
+static void	handle_same_tile(t_ray *ray, float angle, int x_mod, int y_mod)
 {
-    int i = 0;
-    float la = game->player->fovla;
-    float tex_x;
-    int wall_dir;
-    float angle_step = (2 * FOV) / game->rays_count;
+	float	dx;
+	float	dy;
 
-    while (i < game->rays_count)
-    {
-        game->rays[i] = update_ray(game, la, game->player->px, game->player->py, &tex_x, &wall_dir);
-        game->tex_float[i] = tex_x;
-        game->wall_direction[i] = wall_dir;
-        la += angle_step;
-        i++;
-    }
+	dx = cos(angle);
+	dy = sin(angle);
+	if (fabs(dx) > fabs(dy))
+	{
+		if (dx > 0)
+			ray->wall_dir = WALL_WEST;
+		else
+			ray->wall_dir = WALL_EAST;
+		ray->tex_x = (float)y_mod / TILE_LEN;
+	}
+	else
+	{
+		if (dy > 0)
+			ray->wall_dir = WALL_NORTH;
+		else
+			ray->wall_dir = WALL_SOUTH;
+		ray->tex_x = (float)x_mod / TILE_LEN;
+	}
+}
+
+static void	set_wall_face(t_ray *ray, t_game *game, float angle, int *tiles)
+{
+	int	x_mod;
+	int	y_mod;
+
+	x_mod = tiles[0] % TILE_LEN;
+	y_mod = tiles[1] % TILE_LEN;
+	if (x_mod < 0)
+		x_mod += TILE_LEN;
+	if (y_mod < 0)
+		y_mod += TILE_LEN;
+	if (x_mod >= TILE_LEN)
+		x_mod = TILE_LEN - 1;
+	if (y_mod >= TILE_LEN)
+		y_mod = TILE_LEN - 1;
+	if (tiles[2] != tiles[4] && tiles[3] != tiles[5])
+		handle_corner_hit(ray, angle, x_mod, y_mod, tiles[2], tiles[3],
+			tiles[4], tiles[5]);
+	else if (tiles[2] < tiles[4] || tiles[2] > tiles[4])
+	{
+		ray->wall_dir = (tiles[2] < tiles[4]) ? WALL_EAST : WALL_WEST;
+		ray->tex_x = (float)y_mod / TILE_LEN;
+	}
+	else if (tiles[3] < tiles[5] || tiles[3] > tiles[5])
+	{
+		ray->wall_dir = (tiles[3] < tiles[5]) ? WALL_SOUTH : WALL_NORTH;
+		ray->tex_x = (float)x_mod / TILE_LEN;
+	}
+	else
+		handle_same_tile(ray, angle, x_mod, y_mod);
+	(void)game;
+}
+
+t_ray	update_ray(t_game *game, float angle, int x, int y)
+{
+	t_ray	ray;
+	int		tiles[6];
+	int		prev[2];
+	int		v_len;
+
+	ray.dist = 0.0f;
+	ray.tex_x = 0.0f;
+	ray.wall_dir = WALL_NORTH;
+	prev[0] = x;
+	prev[1] = y;
+	v_len = 0;
+	while (v_len < 4000)
+	{
+		tiles[0] = x + (cos(angle) * v_len);
+		tiles[1] = y + (sin(angle) * v_len);
+		tiles[2] = tiles[0] / TILE_LEN;
+		tiles[3] = tiles[1] / TILE_LEN;
+		if (game->map[tiles[3]][tiles[2]] == '1')
+		{
+			tiles[4] = prev[0] / TILE_LEN;
+			tiles[5] = prev[1] / TILE_LEN;
+			set_wall_face(&ray, game, angle, tiles);
+			ray.dist = v_len;
+			return (ray);
+		}
+		prev[0] = tiles[0];
+		prev[1] = tiles[1];
+		v_len++;
+	}
+	return (ray);
+}
+
+void	update_rays(t_game *game)
+{
+	int		i;
+	float	la;
+	float	angle_step;
+
+	i = 0;
+	la = game->player->fovla;
+	angle_step = (2 * FOV) / game->rays_count;
+	while (i < game->rays_count)
+	{
+		game->rays[i] = update_ray(game, la, game->player->px,
+				game->player->py);
+		la += angle_step;
+		i++;
+	}
 }

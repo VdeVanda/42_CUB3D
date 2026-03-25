@@ -6,14 +6,15 @@
 /*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 17:09:23 by vabatist          #+#    #+#             */
-/*   Updated: 2026/03/11 19:19:00 by vabatist         ###   ########.fr       */
+/*   Updated: 2026/03/25 12:09:13 by vabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3D.h"
 
 /**
- * Checks if the map is properly enclosed by walls and has exactly one player start.
+ * Checks if the map is properly enclosed by walls
+ * and has exactly one player start.
  */
 static int	is_valid_neighbor(char c)
 {

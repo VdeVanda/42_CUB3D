@@ -6,7 +6,7 @@
 /*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 17:33:37 by vabatist          #+#    #+#             */
-/*   Updated: 2026/03/11 19:21:28 by vabatist         ###   ########.fr       */
+/*   Updated: 2026/03/25 12:10:29 by vabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 void	parsing_error(char *msg)
 {
-	ft_printf("\n  \033[1;31mError: %s\033[0m\n\n", msg);
-	ft_printf("  \033[1;33mUsage:\033[0m ./cub3d assets/map.cub\n");
+	ft_printf("\n  \033[1;31mError\n\033[0m  %s\n\n", msg);
 }
 
 void	free_str_arr(char **arr)
@@ -35,7 +34,8 @@ void	free_str_arr(char **arr)
 
 /**
  * Trims newline characters from the end of a string, if present.
- * This is useful for cleaning up lines read from a file before further processing.
+ * This is useful for cleaning up lines read
+ * from a file before further processing.
  */
 char	*ft_strtrim_nl(char *str)
 {

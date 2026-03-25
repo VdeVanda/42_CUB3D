@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3D.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vaires-m <vaires-m@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/24 13:01:10 by vaires-m          #+#    #+#             */
+/*   Updated: 2026/03/24 13:01:11 by vaires-m         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -8,19 +20,19 @@
 # include <stdio.h>
 # include <stdlib.h>
 
-// TEXTURE SIDES
+/* TEXTURE SIDES */
 # define TEX_N 0
 # define TEX_E 1
 # define TEX_S 2
 # define TEX_W 3
 
-// WALL DIRECTIONS
+/* WALL DIRECTIONS */
 # define WALL_NORTH 0
 # define WALL_EAST 1
 # define WALL_SOUTH 2
 # define WALL_WEST 3
 
-// KEYCODES
+/* KEYCODES */
 # define KEY_UP 65362
 # define KEY_W 119
 # define KEY_LEFT 65361
@@ -32,14 +44,10 @@
 # define KEY_ESC 65307
 
 # define TILE_LEN 64
-//# define HEIGHT 1000
-//# define WIDTH 1500
 
 # define RAD 0.017
-
-# define FOV (PI / 4)
-
 # define PI 3.1415926535897932384626433832795
+# define FOV 0.785398163397448309615660845819875721
 
 typedef struct s_img
 {
@@ -62,6 +70,13 @@ typedef struct s_player
 	float		fovra;
 }				t_player;
 
+typedef struct s_ray
+{
+	float		dist;
+	float		tex_x;
+	int			wall_dir;
+}				t_ray;
+
 typedef struct s_game
 {
 	void		*mlx_3d;
@@ -69,15 +84,13 @@ typedef struct s_game
 	t_img		*world_3d;
 	t_img		tex_wall[4];
 	char		*tex_paths[4];
-	int			*wall_direction;
 	char		**map;
-	float		*rays;
-	float		*tex_float;
+	t_ray		*rays;
 	int			rays_count;
 	t_player	*player;
 	int			map_rows;
 	int			map_cols;
-    char		player_start_dir;
+	char		player_start_dir;
 	int			player_start_col;
 	int			player_start_row;
 	int			floor_color;
@@ -97,18 +110,15 @@ typedef struct s_game
 }				t_game;
 
 /* srcs/walls.c*/
-unsigned int	get_wall_color(t_game *game, int wall_size, int y_start,
-					int screen_y, int ray_index);
-void			create_strip(t_game *game, int screen_height, int ray_len,
-					int x, int ray_index);
+unsigned int	get_wall_color(t_game *game, int params[3], int ray_idx);
+void			create_strip(t_game *game, int x);
 void			render_strips(t_game *game);
 
 /* srcs/create.c */
 unsigned int	get_color(t_img *img, int x, int y);
 void			create_map(t_game *game, int height);
 void			my_mlx_pixel_put(t_img *img, int x, int y, int color);
-void			add_cube(t_img *img, int width, int height, int x, int y,
-					int color);
+void			add_cube(t_img *img, int params[4], int color);
 int				load_textures(t_game *cub);
 
 /* srcs/init.c */
@@ -143,7 +153,7 @@ void			free_world(t_game *game);
 void			cleanup_game(t_game *game);
 int				close_window(t_game *game);
 
-// *************** PARSING ***************
+/* *************** PARSING *************** */
 
 /* srcs/parsing/check_map.c */
 int				validate_map(t_game *cub);

@@ -6,15 +6,17 @@
 /*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 17:45:04 by vabatist          #+#    #+#             */
-/*   Updated: 2026/03/11 19:20:18 by vabatist         ###   ########.fr       */
+/*   Updated: 2026/03/25 12:09:57 by vabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3D.h"
 
 /**
- * Parses the header of the .cub file, extracting texture paths, floor and ceiling colors,
- * and validating the presence of all required elements. It reads lines until it has successfully
+ * Parses the header of the .cub file, extracting texture paths,
+ * floor and ceiling colors,
+ * and validating the presence of all required elements.
+ * It reads lines until it has successfully
  * parsed 6 valid header lines (4 textures + 2 colors).
  */
 static int	get_tex_index(char *id)
@@ -31,8 +33,10 @@ static int	get_tex_index(char *id)
 }
 
 /**
- * Parses a texture line in the header, which should be in the format "ID path/to/texture.xpm".
- * It validates the format, checks for duplicate texture IDs, and verifies that the specified
+ * Parses a texture line in the header, which should be in the format
+ * "ID path/to/texture.xpm".
+ * It validates the format, checks for duplicate texture IDs,
+ * and verifies that the specified
  * texture file exists and is readable.
  */
 static int	parse_texture_line(char *line, t_game *cub)
@@ -63,8 +67,10 @@ static int	parse_texture_line(char *line, t_game *cub)
 }
 
 /**
- * Parses a single line from the header, determining if it's a texture line or a color line,
- * and delegating to the appropriate parsing function. It returns 1 if the line was successfully
+ * Parses a single line from the header, determining
+ * if it's a texture line or a color line,
+ * and delegating to the appropriate parsing function.
+ * It returns 1 if the line was successfully
  * parsed, 0 otherwise.
  */
 static int	parse_header_line(char *line, t_game *cub)

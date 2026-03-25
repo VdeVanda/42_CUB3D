@@ -6,7 +6,7 @@
 /*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 12:34:58 by vabatist          #+#    #+#             */
-/*   Updated: 2026/03/11 19:20:22 by vabatist         ###   ########.fr       */
+/*   Updated: 2026/03/25 11:53:27 by vabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,10 @@ static int	validate_filename(char *filename)
 		return (parsing_error("Map file must end with .cub"), 0);
 	return (1);
 }
+
 /**
- * Main parsing function that reads the .cub file, extracts textures, colors, and map data,
- * and validates the map structure.
+ * Main parsing function that reads the .cub file, extracts textures, colors,
+ * and map data, and validates the map structure.
  */
 int	parse_cub_file(t_game *cub, char *filename)
 {
@@ -73,4 +74,3 @@ int	parse_cub_file(t_game *cub, char *filename)
 		return (0);
 	return (1);
 }
-

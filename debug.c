@@ -4,12 +4,7 @@ void	free_parsing_data(t_game *cub)
 {
 	int	i;
 
-	i = 0;
-	while (i < 4)
-	{
-		free(cub->tex_paths[i]);
-		i++;
-	}
+	// Don't free tex_paths - they're string literals, not malloc'd
 	if (cub->map)
 	{
 		i = 0;
@@ -29,13 +24,14 @@ int main(int argc, char **argv)
     if (argc != 2)
 	{
 		parsing_error("Wrong number of arguments");
+        ft_printf("  \033[1;33mUsage:\033[0m ./cub3D maps/map.cub\n\n");
 		return (1);
 	}
 
     printf("1. Initializing structs...\n");
     if (init_structs(&game))
     {
-        printf("Error: Init structs failed.\n");
+        printf("Error \nInit structs failed.\n");
         return (1);
     }
 
@@ -54,7 +50,7 @@ int main(int argc, char **argv)
     game->mlx_3d = mlx_init();
     if (!game->mlx_3d)
     {
-        printf("Error: MLX init failed.\n");
+        printf("Error \nMLX init failed.\n");
         cleanup_game(game);
         return(1);
     }
@@ -63,7 +59,7 @@ int main(int argc, char **argv)
     init_worlds(game);
     if (!game->world_3d || !game->world_3d->img)
     {
-        printf("Error: World init failed.\n");
+        printf("Error \nWorld init failed.\n");
         cleanup_game(game);
         return(1);
     }
@@ -72,7 +68,7 @@ int main(int argc, char **argv)
     init_texs(game);
     if (!game->tex_wall[0].img)
     {
-        printf("Error: Texture loading failed.\n");
+        printf("Error \nTexture loading failed.\n");
         cleanup_game(game);
         return(1);
     }
@@ -87,17 +83,20 @@ int main(int argc, char **argv)
     }
 
     printf("5. Loading Map...\n");
-    game->map = load_maps("./assets/map.cub", count_map_rows("./assets/map.cub"));
+    game->map_rows = count_map_rows(argv[1]);
+    game->map_cols = count_map_col(argv[1]);
+    game->map = load_maps(argv[1], game->map_rows);
     if (!game->map)
     {
         printf("Error: Map failed to load\n");
         cleanup_game(game);
         return (1);
     }
+    printf("Map loaded: %d rows x %d cols\n", game->map_rows, game->map_cols);
 
     printf("5.5. Parsing Colors...\n");
     {
-        int fd = open("./assets/map.cub", O_RDONLY);
+        int fd = open(argv[1], O_RDONLY);
         if (fd >= 0)
         {
             char *line;
@@ -120,7 +119,7 @@ int main(int argc, char **argv)
         printf("Floor color: 0x%06X, Ceiling color: 0x%06X\n", game->floor_color & 0xFFFFFF, game->ceiling_color & 0xFFFFFF);
     }
 
-    create_map(game, count_map_rows("./assets/map.cub"));
+    create_map(game, count_map_rows(argv[1]));
     update_rays(game);
     render_strips(game);
 

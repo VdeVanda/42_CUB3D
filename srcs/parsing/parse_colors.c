@@ -6,7 +6,7 @@
 /*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 12:36:59 by vabatist          #+#    #+#             */
-/*   Updated: 2026/03/11 19:20:13 by vabatist         ###   ########.fr       */
+/*   Updated: 2026/03/25 12:06:33 by vabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ static int	is_valid_color_str(char *str)
  */
 static unsigned int	parse_color_value(char *str)
 {
-	char	**rgb;
-	int		i;
-	unsigned int		r;
-	unsigned int		g;
-	unsigned int		b;
-	char	*trimmed;
+	char			**rgb;
+	int				i;
+	unsigned int	r;
+	unsigned int	g;
+	unsigned int	b;
+	char			*trimmed;
 
 	trimmed = ft_strtrim(str, "\n\r\t ");
 	if (!trimmed)
@@ -66,7 +66,8 @@ static unsigned int	parse_color_value(char *str)
 }
 
 /**
- * Assigns the parsed color to the appropriate field in the game struct based on the type ('F' for floor, 'C' for ceiling).
+ * Assigns the parsed color to the appropriate field
+ * in the game struct based on the type ('F' for floor, 'C' for ceiling).
  */
 static int	assign_color(char type, int color, t_game *cub)
 {
@@ -84,7 +85,8 @@ static int	assign_color(char type, int color, t_game *cub)
 }
 
 /**
- * Parses a color line from the configuration file, validates it, and assigns it to the game struct.
+ * Parses a color line from the configuration file,
+ * validates it, and assigns it to the game struct.
  */
 int	parse_color_line(char *line, char type, t_game *cub)
 {

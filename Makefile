@@ -1,6 +1,6 @@
 NAME = cub3D
 
-SRCS = debug.c srcs/init.c srcs/map.c srcs/player.c srcs/move.c srcs/rays.c srcs/create.c \
+SRCS = main.c srcs/init.c srcs/map.c srcs/player.c srcs/move.c srcs/rays.c srcs/create.c \
 	   srcs/walls.c srcs/cleanup.c \
 	   srcs/parsing/check_map.c srcs/parsing/map_loading.c srcs/parsing/parse_colors.c \
 	   srcs/parsing/parse_header.c srcs/parsing/parse_main.c srcs/parsing/parse_utils.c \
@@ -26,26 +26,32 @@ LIBFT_NAME = ft
 LIBFT_LIB = $(LIBFT_PATH)/lib$(LIBFT_NAME).a
 
 LIBS = -L$(MLX_PATH) -l$(MLX_NAME) -L$(LIBFT_PATH) -l$(LIBFT_NAME) -lXext -lX11 -lm -lz
-INCLUDES = -I$(MLX_PATH) -I$(LIBFT_PATH)
+INCLUDES = -isystem $(MLX_PATH) -I$(LIBFT_PATH)
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@make -C $(MLX_PATH)
-	@make -C $(LIBFT_PATH)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
+	@echo "🔨 Building minilibx..."
+	@make -C $(MLX_PATH) -s > /dev/null 2>&1
+	@echo "🔨 Building libft..."
+	@make -C $(LIBFT_PATH) -s
+	@echo "🔗 Linking cub3D..."
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
+	@echo "\033[1;32m  ✓ $(NAME) built successfully\033[0m"
 
 %.o: %.c $(HEADER)
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	@echo "📝 Compiling $(notdir $<)..."
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-	rm -f $(OBJS)
-	@make -C $(MLX_PATH) clean
-	@make -C $(LIBFT_PATH) clean
+	@rm -f $(OBJS)
+	@make -C $(MLX_PATH) clean -s > /dev/null 2>&1
+	@make -C $(LIBFT_PATH) clean -s
 
 fclean: clean
-	rm -f $(NAME)
-	@make -C $(LIBFT_PATH) fclean
+	@rm -f $(NAME)
+	@make -C $(LIBFT_PATH) fclean -s
+	@echo "Goodbye!"
 
 re: fclean all
 
