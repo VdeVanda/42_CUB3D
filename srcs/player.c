@@ -21,16 +21,21 @@ static void	init_player_pos(t_game *game, int x, int y, float angle)
 	game->player->fovra = game->player->pa + FOV;
 }
 
-void	check_player(t_game *game, int x, int y)
+void	init_player_from_start(t_game *game)
 {
-	if (!game->map[y])
-		return ;
-	if (game->map[y][x] == 'N')
+	int		x;
+	int		y;
+	char	dir;
+
+	x = game->player_start_col;
+	y = game->player_start_row;
+	dir = game->player_start_dir;
+	if (dir == 'N')
 		init_player_pos(game, x, y, 3 * PI / 2);
-	if (game->map[y][x] == 'S')
+	else if (dir == 'S')
 		init_player_pos(game, x, y, PI / 2);
-	if (game->map[y][x] == 'W')
+	else if (dir == 'W')
 		init_player_pos(game, x, y, PI);
-	if (game->map[y][x] == 'E')
+	else if (dir == 'E')
 		init_player_pos(game, x, y, 0);
 }

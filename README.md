@@ -1,6 +1,6 @@
-# cub3D
-
 *This project has been created as part of the 42 curriculum by vabatist, vaires-m.*
+
+# cub3D
 
 ## Description
 
@@ -151,7 +151,7 @@ The program displays `Error\n` followed by an explicit error message when:
 ├── Makefile              # Build configuration
 ├── README.md             # This file
 ├── cub3D.h               # Main header file
-├── debug.c               # Main program entry point
+├── main.c               # Main program entry point
 ├── assets/               # Texture files (.xpm)
 ├── maps/                 # Map files (.cub)
 ├── includes/             # External libraries

@@ -6,7 +6,7 @@
 /*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:00:00 by vabatist          #+#    #+#             */
-/*   Updated: 2026/03/25 16:23:28 by vabatist         ###   ########.fr       */
+/*   Updated: 2026/04/01 17:40:33 by vabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,9 @@
 
 void	init_texs(t_game *game)
 {
-	game->tex_paths[WALL_NORTH] = "./assets/north.xpm";
-	game->tex_paths[WALL_EAST] = "./assets/east.xpm";
-	game->tex_paths[WALL_SOUTH] = "./assets/south.xpm";
-	game->tex_paths[WALL_WEST] = "./assets/west.xpm";
 	if (!load_textures(game))
 	{
-		printf("Error: Texture loading failed.\n");
+		ft_printf("Error\nTexture loading failed.\n");
 		return ;
 	}
 }

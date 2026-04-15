@@ -1,7 +1,9 @@
 NAME = cub3D
+SHELL = /bin/bash
 
-SRCS = main.c srcs/init.c srcs/map.c srcs/player.c srcs/move.c srcs/rays.c srcs/create.c \
-	   srcs/walls.c srcs/cleanup.c srcs/resource.c srcs/input.c srcs/render_utils.c \
+SRCS = main.c srcs/init.c srcs/player.c srcs/move.c srcs/rays.c \
+	   srcs/ray_cast.c srcs/create.c srcs/walls.c srcs/cleanup.c srcs/resource.c \
+	   srcs/input.c srcs/render_utils.c \
 	   srcs/parsing/check_map.c srcs/parsing/map_loading.c srcs/parsing/parse_colors.c \
 	   srcs/parsing/parse_header.c srcs/parsing/parse_main.c srcs/parsing/parse_utils.c \
 
@@ -11,7 +13,11 @@ OBJS = $(SRCS:.c=.o)
 HEADER = cub3D.h
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -Wno-incompatible-pointer-types
+
+# Cores
+GREEN = \033[1;32m
+RESET = \033[0m
 
 # Paths
 INCLUDES_PATH = ./includes
@@ -32,12 +38,12 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@echo "🔨 Building minilibx..."
-	@make -C $(MLX_PATH) -s > /dev/null 2>&1
+	@make -C $(MLX_PATH) -s -f Makefile.mk all INC=/usr/include CC="gcc -std=gnu89"
 	@echo "🔨 Building libft..."
 	@make -C $(LIBFT_PATH) -s
 	@echo "🔗 Linking cub3D..."
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
-	@echo "\033[1;32m  ✓ $(NAME) built successfully\033[0m"
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBS) -no-pie -o $(NAME)
+	@echo -e "$(GREEN)  ✓ $(NAME) built successfully$(RESET)"
 
 %.o: %.c $(HEADER)
 	@echo "📝 Compiling $(notdir $<)..."
@@ -45,7 +51,7 @@ $(NAME): $(OBJS)
 
 clean:
 	@rm -f $(OBJS)
-	@make -C $(MLX_PATH) clean -s > /dev/null 2>&1
+	@make -C $(MLX_PATH) -s -f Makefile.mk clean
 	@make -C $(LIBFT_PATH) clean -s
 
 fclean: clean
@@ -55,4 +61,6 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+bonus: all
+
+.PHONY: all clean fclean re bonus

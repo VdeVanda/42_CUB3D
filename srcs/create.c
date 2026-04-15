@@ -32,27 +32,6 @@ unsigned int	get_color(t_img *img, int x, int y)
 	return (*(unsigned int *)dest);
 }
 
-void	create_map(t_game *game, int height)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < height)
-	{
-		if (!game->map[i])
-			break ;
-		j = 0;
-		while (game->map[i][j])
-		{
-			if (strchr("NSEW", game->map[i][j]))
-				check_player(game, j, i);
-			j++;
-		}
-		i++;
-	}
-}
-
 static int	set_texture(t_game *cub, t_img *tex, char *path)
 {
 	tex->img = mlx_xpm_file_to_image(cub->mlx_3d, path, &tex->w, &tex->h);

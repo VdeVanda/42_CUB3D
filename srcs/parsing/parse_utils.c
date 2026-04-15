@@ -14,7 +14,7 @@
 
 void	parsing_error(char *msg)
 {
-	ft_printf("\n  \033[1;31mError\n\033[0m  %s\n\n", msg);
+	ft_printf("Error\n%s\n", msg);
 }
 
 void	free_str_arr(char **arr)

@@ -6,7 +6,7 @@
 /*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 13:00:58 by vaires-m          #+#    #+#             */
-/*   Updated: 2026/03/25 17:15:28 by vabatist         ###   ########.fr       */
+/*   Updated: 2026/04/15 14:32:17 by vabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,20 +67,14 @@ static int	init_game(t_game **game, char *map_file)
 	return (0);
 }
 
-static int	load_game_map(t_game *game, char *map_file)
+static int	load_game_map(t_game *game)
 {
 	game->win_3d = mlx_new_window(game->mlx_3d, game->window_w_3d,
-			game->window_h_3d, "3D View");
+			game->window_h_3d, "cub3D");
 	if (!game->win_3d)
 		return (ft_printf("Error\nWindow creation failed.\n"),
 			cleanup_game(game), 1);
-	game->map_rows = count_map_rows(map_file);
-	game->map_cols = count_map_col(map_file);
-	game->map = load_maps(map_file, game->map_rows);
-	if (!game->map)
-		return (ft_printf("Error\nMap failed to load\n"), cleanup_game(game),
-			1);
-	create_map(game, count_map_rows(map_file));
+	init_player_from_start(game);
 	update_rays(game);
 	render_strips(game);
 	return (0);
@@ -98,7 +92,7 @@ int	main(int argc, char **argv)
 	}
 	if (init_game(&game, argv[1]))
 		return (1);
-	if (load_game_map(game, argv[1]))
+	if (load_game_map(game))
 		return (1);
 	mlx_hook(game->win_3d, 17, 0, close_window, game);
 	mlx_hook(game->win_3d, 2, 1L << 0, key_press, game);

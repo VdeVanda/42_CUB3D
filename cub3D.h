@@ -116,7 +116,6 @@ void			render_strips(t_game *game);
 
 /* srcs/create.c */
 unsigned int	get_color(t_img *img, int x, int y);
-void			create_map(t_game *game, int height);
 void			my_mlx_pixel_put(t_img *img, int x, int y, int color);
 int				load_textures(t_game *cub);
 
@@ -125,15 +124,10 @@ void			init_texs(t_game *game);
 void			init_worlds(t_game *game);
 int				init_structs(t_game **game);
 
-/* srcs/map.c */
-int				count_map_col(char *file);
-int				count_map_rows(char *file);
-char			**load_maps(char *file, int height);
-
 /* srcs/player.c */
-void			check_player(t_game *game, int x, int y);
+void			init_player_from_start(t_game *game);
 
-/* srcs/rays.c*/
+/* srcs/ray_cast.c */
 void			update_rays(t_game *game);
 
 /* srcs/move.c*/
@@ -148,7 +142,6 @@ void			rotate_right(t_game *game);
 /* srcs/cleanup.c */
 void			free_map(char **map);
 void			free_textures(t_game *game);
-void			free_world(t_game *game);
 void			cleanup_game(t_game *game);
 int				close_window(t_game *game);
 
@@ -178,6 +171,5 @@ char			*ft_strtrim_nl(char *str);
 char			*pad_line(char *line, int width);
 
 void			free_parsing_data(t_game *cub);
-int				main(int argc, char **argv);
 
 #endif
