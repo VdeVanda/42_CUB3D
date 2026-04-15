@@ -2,6 +2,15 @@
 
 # cub3D
 
+```text
+ ██████╗██╗   ██╗██████╗ ██████╗ ██████╗ 
+██╔════╝██║   ██║██╔══██╗╚════██╗██╔══██╗
+██║     ██║   ██║██████╔╝ █████╔╝██║  ██║
+██║     ██║   ██║██╔══██╗ ╚═══██╗██║  ██║
+╚██████╗╚██████╔╝██████╔╝██████╔╝██████╔╝
+ ╚═════╝ ╚═════╝ ╚═════╝ ╚═════╝ ╚═════╝ 
+```
+
 ## Description
 
 cub3D is a 3D graphical representation project inspired by the world-famous Wolfenstein 3D game, which was the first FPS ever. This project uses ray-casting techniques to create a dynamic first-person view inside a maze. The goal is to explore realistic 3D projection, work with textures, colors, and implement basic game mechanics.
