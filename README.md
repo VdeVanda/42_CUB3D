@@ -10,6 +10,14 @@
 ╚██████╗╚██████╔╝██████╔╝██████╔╝██████╔╝
  ╚═════╝ ╚═════╝ ╚═════╝ ╚═════╝ ╚═════╝ 
 ```
+<div align="center">
+  <p><strong>A graphical representation project inspired by the world-famous Wolfenstein 3D game, built from scratch in C</strong></p>
+  <br>
+  <img src="https://img.shields.io/badge/Language-C-blue?style=flat-square&logo=c" alt="C">
+  <img src="https://img.shields.io/badge/Graphics-MiniLibX-black?style=flat-square" alt="MiniLibX">
+  <img src="https://img.shields.io/badge/Memory-Leak%20Free-brightgreen?style=flat-square" alt="No Memory Leaks">
+  <img src="https://img.shields.io/badge/42-Norm%20Compliant-yellow?style=flat-square" alt="42 Norm">
+</div>
 
 ## Description
 
