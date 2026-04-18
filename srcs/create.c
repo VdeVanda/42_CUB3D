@@ -6,12 +6,19 @@
 /*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 13:00:56 by vaires-m          #+#    #+#             */
-/*   Updated: 2026/03/25 15:53:35 by vabatist         ###   ########.fr       */
+/*   Updated: 2026/04/18 19:01:51 by vabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
 
+/**
+ * Puts a pixel of a specified color at the given (x, y) coordinates in the
+ * provided image. It calculates the memory address for the pixel based on the
+ * image's data address, line length, and bits per pixel. It also includes
+ * bounds checking to ensure that the (x, y) coordinates are within the
+ * dimensions of the image before attempting to write the color value.
+ */
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	char	*dest;
@@ -22,6 +29,13 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int *)dest = color;
 }
 
+/**
+ * Retrieves the color value of a pixel at the specified (x, y) coordinates from
+ * the provided image. It calculates the memory address for the pixel based on
+ * the image's data address, line length, and bits per pixel. It also includes
+ * bounds checking to ensure that the (x, y) coordinates are within the
+ * dimensions of the image before attempting to read the color value.
+ */
 unsigned int	get_color(t_img *img, int x, int y)
 {
 	char	*dest;

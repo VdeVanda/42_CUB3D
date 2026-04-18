@@ -6,12 +6,18 @@
 /*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 13:00:58 by vaires-m          #+#    #+#             */
-/*   Updated: 2026/03/25 17:13:04 by vabatist         ###   ########.fr       */
+/*   Updated: 2026/04/18 18:58:10 by vabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
 
+/**
+ * Frees the memory allocated for the game map. It iterates through each row of
+ * the map, freeing the memory for each row string, and then frees the array
+ * of row pointers itself. This function is called during cleanup to ensure that
+ * all dynamically allocated memory for the map is properly released.
+ */
 void	free_map(char **map)
 {
 	int	i;
@@ -27,6 +33,11 @@ void	free_map(char **map)
 	free(map);
 }
 
+/**
+ * Frees the textures loaded in the game. It iterates through the array of wall
+ * textures, destroying each image using mlx_destroy_image() if it exists.
+ * It also frees the world_3d image if it exists.
+ */
 void	free_textures(t_game *game)
 {
 	int	i;
@@ -47,6 +58,11 @@ void	free_textures(t_game *game)
 	}
 }
 
+/**
+ * Cleans up all resources allocated for the game.
+ * This includes freeing the rays array, textures, map,
+ * and destroying the window and display if they were created.
+ */
 static void	free_paths_and_resources(t_game *game)
 {
 	int	i;
@@ -64,6 +80,11 @@ static void	free_paths_and_resources(t_game *game)
 	free_textures(game);
 }
 
+/**
+ * Performs a comprehensive cleanup of all game resources.
+ * It frees the rays array, textures, map, and destroys the window
+ * and display if they were created.
+ */
 void	cleanup_game(t_game *game)
 {
 	if (!game)
@@ -85,6 +106,12 @@ void	cleanup_game(t_game *game)
 	free(game);
 }
 
+/**
+ * Handles the window close event. It calls cleanup_game() to free all resources
+ * and then exits the program. This function is registered as a callback for the
+ * window close event to ensure that resources are properly released when the
+ * user closes the game window.
+ */
 int	close_window(t_game *game)
 {
 	cleanup_game(game);

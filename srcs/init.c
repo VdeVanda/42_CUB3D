@@ -6,7 +6,7 @@
 /*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 13:00:54 by vaires-m          #+#    #+#             */
-/*   Updated: 2026/03/25 17:57:26 by vabatist         ###   ########.fr       */
+/*   Updated: 2026/04/18 18:52:38 by vabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ static void	init_game_keys(t_game *game)
 	game->key_d = 0;
 	game->key_left = 0;
 	game->key_right = 0;
-	game->key_up = 0;
-	game->key_down = 0;
 }
 
 static void	init_game_values(t_game *game)
@@ -55,8 +53,6 @@ static void	init_game_values(t_game *game)
 	game->map_cols = 0;
 	game->window_w_3d = 1500;
 	game->window_h_3d = 1000;
-	game->window_w = 0;
-	game->window_h = 0;
 }
 
 int	init_structs(t_game **game)

@@ -6,7 +6,7 @@
 /*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 13:01:10 by vaires-m          #+#    #+#             */
-/*   Updated: 2026/03/25 17:57:31 by vabatist         ###   ########.fr       */
+/*   Updated: 2026/04/18 18:51:22 by vabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,9 @@
 # define WALL_WEST 3
 
 /* KEYCODES */
-# define KEY_UP 65362
 # define KEY_W 119
 # define KEY_LEFT 65361
 # define KEY_A 97
-# define KEY_DOWN 65364
 # define KEY_S 115
 # define KEY_RIGHT 65363
 # define KEY_D 100
@@ -97,14 +95,10 @@ typedef struct s_game
 	int			ceiling_color;
 	int			window_w_3d;
 	int			window_h_3d;
-	int			window_w;
-	int			window_h;
 	int			key_w;
 	int			key_a;
 	int			key_s;
 	int			key_d;
-	int			key_up;
-	int			key_down;
 	int			key_left;
 	int			key_right;
 }				t_game;
