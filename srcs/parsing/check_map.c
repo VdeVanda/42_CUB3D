@@ -6,7 +6,7 @@
 /*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 17:09:23 by vabatist          #+#    #+#             */
-/*   Updated: 2026/03/25 12:09:13 by vabatist         ###   ########.fr       */
+/*   Updated: 2026/04/18 17:38:55 by vabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,13 @@ static int	check_cell(t_game *cub, int x, int y)
 	return (1);
 }
 
+/**
+ * It first ensures the cell is properly enclosed (not on the border and not
+ * adjacent to "void" such as spaces or end-of-line) by delegating to
+ * check_cell(). If the cell contains a player start marker, it stores the
+ * player start position/direction in @p cub, converts the marker to '0'
+ * (floor) in the map, and increments @p player_count.
+ */
 static int	check_walkable_cell(t_game *cub, int x, int y, int *player_count)
 {
 	if (!check_cell(cub, x, y))
@@ -52,6 +59,14 @@ static int	check_walkable_cell(t_game *cub, int x, int y, int *player_count)
 	return (1);
 }
 
+/**
+ * Validates the map by iterating through each cell and checking:
+ * - If it's a walkable cell ('0' or player start), it calls check_walk
+ * to ensure it's properly enclosed and counts player starts.
+ * - If it's an invalid character (not '0', '1', space, or player start),
+ * it returns an error.
+ * Finally, it checks that there is exactly one player start position.
+ */
 int	validate_map(t_game *cub)
 {
 	int	x;
