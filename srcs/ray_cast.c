@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_cast.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vaires-m <vaires-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 00:00:00 by vaires-m          #+#    #+#             */
-/*   Updated: 2026/04/15 20:02:50 by vabatist         ###   ########.fr       */
+/*   Updated: 2026/04/14 00:00:00 by vaires-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	update_rays(t_game *game)
 	int		i;
 	float	la;
 	float	angle_step;
-//	float	diff;
+
 	i = 0;
 	la = game->player->fovla;
 	angle_step = (2 * FOV) / game->rays_count;
@@ -70,10 +70,6 @@ void	update_rays(t_game *game)
 	{
 		game->rays[i] = cast_ray(game, la, game->player->px,
 				game->player->py);
-	//	diff = la - game->player->pa;
-	//	game->rays[i].dist *= cos(diff);
-	//	if (game->rays[i].dist < 0.0001f)
-	//		game->rays[i].dist = 0.0001f;
 		la += angle_step;
 		i++;
 	}
