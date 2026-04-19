@@ -3,15 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vaires-m <vaires-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 13:00:48 by vaires-m          #+#    #+#             */
-/*   Updated: 2026/03/24 13:00:49 by vaires-m         ###   ########.fr       */
+/*   Updated: 2026/04/19 18:06:56 by vabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
 
+/**
+ * initializes the player’s starting position and view direction
+ * based on a map tile coordinate.
+ */
 static void	init_player_pos(t_game *game, int x, int y, float angle)
 {
 	game->player->px = x * TILE_LEN + (TILE_LEN / 2);
@@ -21,6 +25,11 @@ static void	init_player_pos(t_game *game, int x, int y, float angle)
 	game->player->fovra = game->player->pa + FOV;
 }
 
+/**
+ * sets the player’s initial angle
+ * based on the start direction letter from the map (N, S, E, W),
+ * and spawns them at the start tile.
+ */
 void	init_player_from_start(t_game *game)
 {
 	int		x;

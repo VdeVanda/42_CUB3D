@@ -6,12 +6,16 @@
 /*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 13:00:50 by vaires-m          #+#    #+#             */
-/*   Updated: 2026/03/25 16:32:20 by vabatist         ###   ########.fr       */
+/*   Updated: 2026/04/19 18:20:02 by vabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
 
+/**
+ * moves the player forward in the direction they’re facing,
+ * but only if the destination tile is not a wall and is inside the map.
+ */
 void	move_front(t_game *game)
 {
 	float	x;
@@ -33,6 +37,10 @@ void	move_front(t_game *game)
 	game->player->py += y;
 }
 
+/**
+ * moves the player backward opposite to the direction they’re facing,
+ * but only if the destination tile is not a wall and is inside the map.
+ */
 void	move_back(t_game *game)
 {
 	float	x;
@@ -54,6 +62,11 @@ void	move_back(t_game *game)
 	game->player->py -= y;
 }
 
+/**
+ * moves the player to the left (strafe) perpendicular
+ * to the direction they’re facing,
+ * but only if the destination tile is not a wall and is inside the map.
+ */
 void	move_strafe_left(t_game *game)
 {
 	float	x;
@@ -75,6 +88,11 @@ void	move_strafe_left(t_game *game)
 	game->player->py += y;
 }
 
+/**
+ * moves the player to the right (strafe) perpendicular
+ * to the direction they’re facing,
+ * but only if the destination tile is not a wall and is inside the map.
+ */
 void	move_strafe_right(t_game *game)
 {
 	float	x;
@@ -96,6 +114,11 @@ void	move_strafe_right(t_game *game)
 	game->player->py += y;
 }
 
+/**
+ * handles the main game loop, checking for key states and moving the player
+ * accordingly. It updates the rays and re-renders the scene if any movement
+ * or rotation keys are pressed.
+ */
 int	game_loop(t_game *game)
 {
 	game->player->speed = 0.25;

@@ -6,12 +6,18 @@
 /*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 13:00:54 by vaires-m          #+#    #+#             */
-/*   Updated: 2026/04/18 18:52:38 by vabatist         ###   ########.fr       */
+/*   Updated: 2026/04/19 16:34:15 by vabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
 
+/**
+ * Initializes the rays array for the game. It allocates memory for the specified
+ * number of rays and sets the initial values for each ray's distance, texture
+ * x-coordinate, and wall direction. The function also updates the game's
+ * rays_count field with the number of rays initialized.
+ */
 t_ray	*init_rays(t_game *game, int nbr)
 {
 	int		i;
@@ -32,6 +38,12 @@ t_ray	*init_rays(t_game *game, int nbr)
 	return (rays);
 }
 
+/**
+ * Initializes the key states for the game. It sets all key state variables
+ * to 0, indicating that no keys are currently pressed. This function is called
+ * during the initialization of the game to ensure that the key states are in a
+ * known state before any user input is processed.
+ */
 static void	init_game_keys(t_game *game)
 {
 	game->key_w = 0;
@@ -42,6 +54,11 @@ static void	init_game_keys(t_game *game)
 	game->key_right = 0;
 }
 
+/**
+ * A safe default initialization function for the game structure
+ * to start with known default values, no garbage.
+ * Define default window size.
+ */
 static void	init_game_values(t_game *game)
 {
 	game->rays_count = 0;
@@ -55,6 +72,9 @@ static void	init_game_values(t_game *game)
 	game->window_h_3d = 1000;
 }
 
+/**
+ * Allocates and initializes the main game structure and its components.
+ */
 int	init_structs(t_game **game)
 {
 	*game = (t_game *)malloc(sizeof(t_game));

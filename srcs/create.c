@@ -6,7 +6,7 @@
 /*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 13:00:56 by vaires-m          #+#    #+#             */
-/*   Updated: 2026/04/18 19:01:51 by vabatist         ###   ########.fr       */
+/*   Updated: 2026/04/19 16:08:20 by vabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,12 @@ unsigned int	get_color(t_img *img, int x, int y)
 	return (*(unsigned int *)dest);
 }
 
+/**
+ * Helper function to load a texture image from a file path and set up the
+ * corresponding t_img structure with the image data. It uses the MiniLibX
+ * function mlx_xpm_file_to_image() to load the image and mlx_get_data_addr() to
+ * retrieve the image data address and related information.
+ */
 static int	set_texture(t_game *cub, t_img *tex, char *path)
 {
 	tex->img = mlx_xpm_file_to_image(cub->mlx_3d, path, &tex->w, &tex->h);
@@ -58,6 +64,11 @@ static int	set_texture(t_game *cub, t_img *tex, char *path)
 	return (1);
 }
 
+/**
+ * Loads the textures for the game by calling set_texture() for each of the four
+ * wall textures (north, east, south, west). It uses the texture paths stored in
+ * the game structure to load the corresponding texture images.
+ */
 int	load_textures(t_game *cub)
 {
 	if (!set_texture(cub, &cub->tex_wall[TEX_N], cub->tex_paths[TEX_N]))
