@@ -6,7 +6,7 @@
 /*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 17:09:23 by vabatist          #+#    #+#             */
-/*   Updated: 2026/04/18 17:38:55 by vabatist         ###   ########.fr       */
+/*   Updated: 2026/04/21 22:33:13 by vabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,14 @@ static int	is_valid_neighbor(char c)
 	return (c != ' ' && c != '\0' && c != '\n');
 }
 
+/**
+ * Validate that the map cell at (x, y) is not on the border
+ * and is properly enclosed by valid neighboring cells.
+ * This is used to ensure playable/empty cells aren’t on the edge
+ * (prevents “open map” leaks).
+ * It’s called for each “non-wall” cell during parsing/validation:
+ * if any such cell fails, will treat the map as invalid (“map not closed”).
+ */
 static int	check_cell(t_game *cub, int x, int y)
 {
 	if (y == 0 || y == cub->map_rows - 1
