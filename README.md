@@ -168,7 +168,7 @@ The program displays `Error\n` followed by an explicit error message when:
 ├── Makefile              # Build configuration
 ├── README.md             # This file
 ├── cub3D.h               # Main header file
-├── main.c               # Main program entry point
+├── main.c                # Main program entry point
 ├── assets/               # Texture files (.xpm)
 ├── maps/                 # Map files (.cub)
 ├── includes/             # External libraries
