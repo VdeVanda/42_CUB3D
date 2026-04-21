@@ -6,7 +6,7 @@
 /*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 13:00:47 by vaires-m          #+#    #+#             */
-/*   Updated: 2026/04/19 19:25:53 by vabatist         ###   ########.fr       */
+/*   Updated: 2026/04/21 21:52:23 by vabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,11 @@ static void	handle_same_tile(t_ray *ray, float angle, int x_mod, int y_mod)
 	}
 }
 
+/**
+ * helper for when the ray hits a vertical tile boundary (E/W face).
+ * It compares the adjacent tiles to determine if the hit is on an E or W face,
+ * and calculates the texture coordinate based on the y_mod of the hit point.
+ */
 static void	handle_ew_face(t_ray *ray, int *mods, int *tiles)
 {
 	if (tiles[0] < tiles[2])
@@ -52,6 +57,11 @@ static void	handle_ew_face(t_ray *ray, int *mods, int *tiles)
 	ray->tex_x = (float)mods[1] / TILE_LEN;
 }
 
+/**
+ * helper for when the ray hits a horizontal tile boundary (N/S face).
+ * It compares the adjacent tiles to determine if the hit is on a N or S face,
+ * and calculates the texture coordinate based on the x_mod of the hit point.
+ */
 static void	handle_ns_face(t_ray *ray, int *mods, int *tiles)
 {
 	if (tiles[1] < tiles[3])
@@ -61,6 +71,16 @@ static void	handle_ns_face(t_ray *ray, int *mods, int *tiles)
 	ray->tex_x = (float)mods[0] / TILE_LEN;
 }
 
+/**
+ * Determine which wall face (N/S/E/W) the ray hit
+ * and compute the ray’s texture coordinate.
+ * - Primary decision is based on which tile boundary was hit
+ *   (vertical vs horizontal).
+ * -If it’s ambiguous (corner), it checks neighboring map cells
+ *   (xy_free, yx_free).
+ * - If still not clear, fall back to inferring the face from the ray direction
+ *   (angle) via handle_same_tile().
+ */
 void	set_wall_face(t_ray *ray, t_game *game, float angle, int *tiles)
 {
 	int	mods[2];

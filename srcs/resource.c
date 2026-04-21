@@ -6,12 +6,17 @@
 /*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:00:00 by vabatist          #+#    #+#             */
-/*   Updated: 2026/04/01 17:40:33 by vabatist         ###   ########.fr       */
+/*   Updated: 2026/04/21 22:09:45 by vabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
 
+/**
+ * initializes the game’s textures.
+ * Calls load_textures(game) to load all required texture images into game.
+ * If loading fails, prints error message.
+ */
 void	init_texs(t_game *game)
 {
 	if (!load_textures(game))
@@ -21,6 +26,12 @@ void	init_texs(t_game *game)
 	}
 }
 
+/**
+ * Initializes the main 3D world image buffer (game->world_3d) where the final
+ * rendered scene will be drawn each frame. It creates a new image with the
+ * same dimensions as the game window and retrieves its data address for pixel
+ * manipulation. If any step fails, it cleans up and sets world_3d to NULL.
+ */
 void	init_worlds(t_game *game)
 {
 	game->world_3d = (t_img *)malloc(sizeof(t_img));
