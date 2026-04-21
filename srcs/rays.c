@@ -3,15 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vaires-m <vaires-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 13:00:47 by vaires-m          #+#    #+#             */
-/*   Updated: 2026/04/14 00:00:00 by vaires-m         ###   ########.fr       */
+/*   Updated: 2026/04/19 19:25:53 by vabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
 
+/**
+ * helper called when a ray hits a wall tile but the hit point is exactly on the
+ * boundary between two tiles. It determines the wall face based on the ray angle
+ * and the position of the hit point within the tile, and sets the ray's wall_dir
+ * and tex_x accordingly.
+ */
 static void	handle_same_tile(t_ray *ray, float angle, int x_mod, int y_mod)
 {
 	float	dx;
