@@ -33,6 +33,16 @@ cub3D is a 3D graphical representation project inspired by the world-famous Wolf
 
 ## Instructions
 
+### Performance 
+
+Adding `-O3` to `CFLAGS` in Makefile can improve performance (faster movement).
+
+You can enable it adding the flag `-O3` to the `Makefile`:
+
+- `CFLAGS = -Wall -Wextra -Werror -Wno-incompatible-pointer-types -O3`
+
+Note: `-O3` enables aggressive optimizations and can make debugging harder. While developing.
+
 ### Compilation
 
 To compile the project, run:
