@@ -6,7 +6,7 @@
 /*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 13:01:10 by vaires-m          #+#    #+#             */
-/*   Updated: 2026/04/18 18:51:22 by vabatist         ###   ########.fr       */
+/*   Updated: 2026/04/22 11:33:15 by vabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ typedef struct s_game
 	int			key_d;
 	int			key_left;
 	int			key_right;
+	int			fisheye_level;
 }				t_game;
 
 /* srcs/walls.c*/
@@ -126,6 +127,9 @@ void			update_rays(t_game *game);
 
 /* srcs/move.c*/
 int				game_loop(t_game *game);
+
+/* srcs/collision.c */
+int				can_stand_at(t_game *g, float x, float y);
 
 /* srcs/input.c*/
 int				key_press(int keycode, t_game *game);

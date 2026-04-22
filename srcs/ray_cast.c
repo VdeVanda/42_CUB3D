@@ -6,7 +6,7 @@
 /*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 00:00:00 by vaires-m          #+#    #+#             */
-/*   Updated: 2026/04/19 19:21:09 by vabatist         ###   ########.fr       */
+/*   Updated: 2026/04/22 10:34:28 by vabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,22 @@ static t_ray	cast_ray(t_game *game, float angle, int x, int y)
 	return (ray);
 }
 
+static void	apply_fisheye_slider(t_game *g, int i, float ray_ang)
+{
+	float	delta;
+	float	k;
+
+	delta = ray_ang - g->player->pa;
+	k = (float)g->fisheye_level / 5.0f;
+	if (k < 0.0f)
+		k = 0.0f;
+	if (k > 1.0f)
+		k = 1.0f;
+	g->rays[i].dist *= (1.0f - k) + k * cosf(delta);
+	if (g->rays[i].dist < 0.0001f)
+		g->rays[i].dist = 0.0001f;
+}
+
 /**
  * updates all the rays in the game by casting them from the player's position
  * at the appropriate angles based on the player's field of view. It iterates
@@ -96,6 +112,7 @@ void	update_rays(t_game *game)
 	{
 		game->rays[i] = cast_ray(game, la, game->player->px,
 				game->player->py);
+		apply_fisheye_slider(game, i, la);
 		la += angle_step;
 		i++;
 	}

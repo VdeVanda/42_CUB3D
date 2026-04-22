@@ -6,7 +6,7 @@
 /*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 13:00:54 by vaires-m          #+#    #+#             */
-/*   Updated: 2026/04/19 16:34:15 by vabatist         ###   ########.fr       */
+/*   Updated: 2026/04/22 11:15:52 by vabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ static void	init_game_values(t_game *game)
 	game->map_cols = 0;
 	game->window_w_3d = 1500;
 	game->window_h_3d = 1000;
+	game->fisheye_level = 4;
 }
 
 /**

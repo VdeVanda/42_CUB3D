@@ -6,86 +6,77 @@
 /*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 13:00:50 by vaires-m          #+#    #+#             */
-/*   Updated: 2026/04/19 18:20:02 by vabatist         ###   ########.fr       */
+/*   Updated: 2026/04/22 11:39:21 by vabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
 
 /**
- * moves the player forward in the direction they’re facing,
- * but only if the destination tile is not a wall and is inside the map.
+ * moves the player forward in the direction they’re facing.
+ * Movement is applied per-axis (X then Y) and only if the player hitbox
+ * can stand at the new position without colliding with walls.
  */
 void	move_front(t_game *game)
 {
-	float	x;
-	float	y;
-	int		tile_x;
-	int		tile_y;
+	float	dx;
+	float	dy;
+	float	nx;
+	float	ny;
 
-	x = cos(game->player->pa) * game->player->speed * 13;
-	y = sin(game->player->pa) * game->player->speed * 13;
-	tile_x = (int)(game->player->px + x) / TILE_LEN;
-	tile_y = (int)(game->player->py + y) / TILE_LEN;
-	if (tile_x < 0 || tile_y < 0 || tile_y >= game->map_rows)
-		return ;
-	if (!game->map[tile_y] || tile_x >= (int)strlen(game->map[tile_y]))
-		return ;
-	if (game->map[tile_y][tile_x] == '1')
-		return ;
-	game->player->px += x;
-	game->player->py += y;
+	dx = cosf(game->player->pa) * game->player->speed * 13;
+	dy = sinf(game->player->pa) * game->player->speed * 13;
+	nx = game->player->px + dx;
+	ny = game->player->py + dy;
+	if (can_stand_at(game, nx, game->player->py))
+		game->player->px = nx;
+	if (can_stand_at(game, game->player->px, ny))
+		game->player->py = ny;
 }
 
 /**
- * moves the player backward opposite to the direction they’re facing,
- * but only if the destination tile is not a wall and is inside the map.
+ * moves the player backward opposite to the direction they’re facing.
+ * Movement is applied per-axis (X then Y) and only if the player hitbox
+ * can stand at the new position without colliding with walls.
  */
 void	move_back(t_game *game)
 {
-	float	x;
-	float	y;
-	int		tile_x;
-	int		tile_y;
+	float	dx;
+	float	dy;
+	float	nx;
+	float	ny;
 
-	x = cos(game->player->pa) * game->player->speed * 13;
-	y = sin(game->player->pa) * game->player->speed * 13;
-	tile_x = (int)(game->player->px - x) / TILE_LEN;
-	tile_y = (int)(game->player->py - y) / TILE_LEN;
-	if (tile_x < 0 || tile_y < 0 || tile_y >= game->map_rows)
-		return ;
-	if (!game->map[tile_y] || tile_x >= (int)strlen(game->map[tile_y]))
-		return ;
-	if (game->map[tile_y][tile_x] == '1')
-		return ;
-	game->player->px -= x;
-	game->player->py -= y;
+	dx = cosf(game->player->pa) * game->player->speed * 13;
+	dy = sinf(game->player->pa) * game->player->speed * 13;
+	nx = game->player->px - dx;
+	ny = game->player->py - dy;
+	if (can_stand_at(game, nx, game->player->py))
+		game->player->px = nx;
+	if (can_stand_at(game, game->player->px, ny))
+		game->player->py = ny;
 }
 
 /**
  * moves the player to the left (strafe) perpendicular
- * to the direction they’re facing,
- * but only if the destination tile is not a wall and is inside the map.
+ * to the direction they’re facing.
+ * Movement is applied per-axis (X then Y) and only if the player hitbox
+ * can stand at the new position without colliding with walls.
  */
 void	move_strafe_left(t_game *game)
 {
-	float	x;
-	float	y;
-	int		tile_x;
-	int		tile_y;
+	float	dx;
+	float	dy;
+	float	nx;
+	float	ny;
 
-	x = cos(game->player->pa - PI / 2) * game->player->speed * 13;
-	y = sin(game->player->pa - PI / 2) * game->player->speed * 13;
-	tile_x = (int)(game->player->px + x) / TILE_LEN;
-	tile_y = (int)(game->player->py + y) / TILE_LEN;
-	if (tile_x < 0 || tile_y < 0 || tile_y >= game->map_rows)
-		return ;
-	if (!game->map[tile_y] || tile_x >= (int)strlen(game->map[tile_y]))
-		return ;
-	if (game->map[tile_y][tile_x] == '1')
-		return ;
-	game->player->px += x;
-	game->player->py += y;
+	dx = cosf(game->player->pa - PI / 2) * game->player->speed * 13;
+	dy = sinf(game->player->pa - PI / 2) * game->player->speed * 13;
+	nx = game->player->px + dx;
+	ny = game->player->py + dy;
+	if (can_stand_at(game, nx, game->player->py))
+		game->player->px = nx;
+	if (can_stand_at(game, game->player->px, ny))
+		game->player->py = ny;
 }
 
 /**
@@ -95,23 +86,19 @@ void	move_strafe_left(t_game *game)
  */
 void	move_strafe_right(t_game *game)
 {
-	float	x;
-	float	y;
-	int		tile_x;
-	int		tile_y;
+	float	dx;
+	float	dy;
+	float	nx;
+	float	ny;
 
-	x = cos(game->player->pa + PI / 2) * game->player->speed * 13;
-	y = sin(game->player->pa + PI / 2) * game->player->speed * 13;
-	tile_x = (int)(game->player->px + x) / TILE_LEN;
-	tile_y = (int)(game->player->py + y) / TILE_LEN;
-	if (tile_x < 0 || tile_y < 0 || tile_y >= game->map_rows)
-		return ;
-	if (!game->map[tile_y] || tile_x >= (int)strlen(game->map[tile_y]))
-		return ;
-	if (game->map[tile_y][tile_x] == '1')
-		return ;
-	game->player->px += x;
-	game->player->py += y;
+	dx = cosf(game->player->pa + PI / 2) * game->player->speed * 13;
+	dy = sinf(game->player->pa + PI / 2) * game->player->speed * 13;
+	nx = game->player->px + dx;
+	ny = game->player->py + dy;
+	if (can_stand_at(game, nx, game->player->py))
+		game->player->px = nx;
+	if (can_stand_at(game, game->player->px, ny))
+		game->player->py = ny;
 }
 
 /**

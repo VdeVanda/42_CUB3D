@@ -1,7 +1,7 @@
 NAME = cub3D
 SHELL = /bin/bash
 
-SRCS = main.c srcs/init.c srcs/player.c srcs/move.c srcs/rays.c \
+SRCS = main.c srcs/init.c srcs/player.c srcs/move.c srcs/collision.c srcs/rays.c \
 	   srcs/ray_cast.c srcs/create.c srcs/walls.c srcs/cleanup.c srcs/resource.c \
 	   srcs/input.c srcs/render_utils.c \
 	   srcs/parsing/check_map.c srcs/parsing/map_loading.c srcs/parsing/parse_colors.c \
@@ -15,7 +15,7 @@ HEADER = cub3D.h
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -Wno-incompatible-pointer-types
 
-# Cores
+# Color codes
 GREEN = \033[1;32m
 RESET = \033[0m
 
@@ -38,7 +38,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@echo "🔨 Building minilibx..."
-	@make -C $(MLX_PATH) -s -f Makefile.mk all INC=/usr/include CC="gcc -std=gnu89"
+	@make -C $(MLX_PATH) -s -f Makefile.mk all INC=/usr/include CC="gcc -std=gnu89 -Wno-unused-result"
 	@echo "🔨 Building libft..."
 	@make -C $(LIBFT_PATH) -s
 	@echo "🔗 Linking cub3D..."
