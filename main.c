@@ -6,12 +6,16 @@
 /*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 13:00:58 by vaires-m          #+#    #+#             */
-/*   Updated: 2026/04/15 14:32:17 by vabatist         ###   ########.fr       */
+/*   Updated: 2026/04/22 09:23:45 by vabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
+/**
+ * Frees the memory allocated for texture paths.
+ * @param cub Pointer to the game structure containing texture paths.
+ */
 static void	free_texture_paths(t_game *cub)
 {
 	int	i;
@@ -28,6 +32,10 @@ static void	free_texture_paths(t_game *cub)
 	}
 }
 
+/**
+ * Frees the memory allocated for parsing data.
+ * @param cub Pointer to the game structure containing parsing data.
+ */
 void	free_parsing_data(t_game *cub)
 {
 	int	i;
@@ -46,6 +54,12 @@ void	free_parsing_data(t_game *cub)
 	}
 }
 
+/**
+ * Initializes the game structure and its components.
+ * @param game Pointer to the game structure.
+ * @param map_file Path to the map file.
+ * @return 0 on success, 1 on failure.
+ */
 static int	init_game(t_game **game, char *map_file)
 {
 	if (init_structs(game))
@@ -67,6 +81,11 @@ static int	init_game(t_game **game, char *map_file)
 	return (0);
 }
 
+/**
+ * Loads the game map and initializes the game window.
+ * @param game Pointer to the game structure.
+ * @return 0 on success, 1 on failure.
+ */
 static int	load_game_map(t_game *game)
 {
 	game->win_3d = mlx_new_window(game->mlx_3d, game->window_w_3d,
@@ -80,6 +99,12 @@ static int	load_game_map(t_game *game)
 	return (0);
 }
 
+/**
+ * Main function to initialize and run the game.
+ * @param argc Number of command-line arguments.
+ * @param argv Array of command-line arguments.
+ * @return 0 on success, 1 on failure.
+ */
 int	main(int argc, char **argv)
 {
 	t_game	*game;

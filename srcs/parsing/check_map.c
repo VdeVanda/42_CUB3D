@@ -6,7 +6,7 @@
 /*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 17:09:23 by vabatist          #+#    #+#             */
-/*   Updated: 2026/04/21 22:33:13 by vabatist         ###   ########.fr       */
+/*   Updated: 2026/04/22 09:19:05 by vabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,14 @@ static int	check_cell(t_game *cub, int x, int y)
 	if (!is_valid_neighbor(cub->map[y][x - 1]))
 		return (0);
 	if (!is_valid_neighbor(cub->map[y][x + 1]))
+		return (0);
+	if (!is_valid_neighbor(cub->map[y - 1][x - 1]))
+		return (0);
+	if (!is_valid_neighbor(cub->map[y - 1][x + 1]))
+		return (0);
+	if (!is_valid_neighbor(cub->map[y + 1][x - 1]))
+		return (0);
+	if (!is_valid_neighbor(cub->map[y + 1][x + 1]))
 		return (0);
 	return (1);
 }
