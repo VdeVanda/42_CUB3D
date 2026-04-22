@@ -164,26 +164,29 @@ The program displays `Error\n` followed by an explicit error message when:
 ## Project Structure
 
 ```
-.
 ├── Makefile              # Build configuration
-├── README.md             # This file
-├── cub3D.h               # Main header file
-├── main.c                # Main program entry point
+├── README.md
+├── cub3D.h
+├── main.c
 ├── assets/               # Texture files (.xpm)
 ├── maps/                 # Map files (.cub)
-├── includes/             # External libraries
+├── includes/
 │   ├── libft/            # Custom C library
 │   └── minilibx-linux/   # Graphics library
-└── srcs/                 # Source files
-    ├── cleanup.c         # Memory management
-    ├── create.c          # Image and texture creation
-    ├── init.c            # Initialization functions
-    ├── map.c             # Map rendering utilities
-    ├── move.c            # Player movement and controls
-    ├── player.c          # Player management
-    ├── rays.c            # Ray-casting calculations
-    ├── walls.c           # Wall rendering
-    └── parsing/          # Map file parsing
+└── srcs/
+    ├── cleanup.c
+    ├── collision.c
+    ├── create.c
+    ├── init.c
+    ├── input.c
+    ├── move.c
+    ├── player.c
+    ├── rays.c
+    ├── ray_cast.c
+    ├── render_utils.c
+    ├── resource.c
+    ├── walls.c
+    └── parsing/
         ├── check_map.c
         ├── map_loading.c
         ├── parse_colors.c
