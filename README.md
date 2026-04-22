@@ -39,7 +39,9 @@ Adding `-O3` to `CFLAGS` in Makefile can improve performance (faster movement).
 
 You can enable it adding the flag `-O3` to the `Makefile`:
 
-- `CFLAGS = -Wall -Wextra -Werror -Wno-incompatible-pointer-types -O3`
+```bash
+CFLAGS = -Wall -Wextra -Werror -Wno-incompatible-pointer-types -O3
+```
 
 Note: `-O3` enables aggressive optimizations and can make debugging harder while developing.
 
