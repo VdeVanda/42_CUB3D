@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vaires-m <vaires-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 13:01:10 by vaires-m          #+#    #+#             */
-/*   Updated: 2026/04/22 11:33:15 by vabatist         ###   ########.fr       */
+/*   Updated: 2026/04/22 12:28:15 by vaires-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void			my_mlx_pixel_put(t_img *img, int x, int y, int color);
 int				load_textures(t_game *cub);
 
 /* srcs/init.c */
-void			init_texs(t_game *game);
+int				init_texs(t_game *game);
 void			init_worlds(t_game *game);
 int				init_structs(t_game **game);
 

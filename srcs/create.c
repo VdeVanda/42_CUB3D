@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vaires-m <vaires-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 13:00:56 by vaires-m          #+#    #+#             */
-/*   Updated: 2026/04/19 16:08:20 by vabatist         ###   ########.fr       */
+/*   Updated: 2026/04/22 12:28:15 by vaires-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,11 @@ static int	set_texture(t_game *cub, t_img *tex, char *path)
 	tex->adr = mlx_get_data_addr(tex->img, &tex->bits_per_pixel,
 			&tex->line_len, &tex->endian);
 	if (!tex->adr)
+	{
+		mlx_destroy_image(cub->mlx_3d, tex->img);
+		tex->img = NULL;
 		return (0);
+	}
 	return (1);
 }
 

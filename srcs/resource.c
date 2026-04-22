@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   resource.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vaires-m <vaires-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 17:00:00 by vabatist          #+#    #+#             */
-/*   Updated: 2026/04/22 09:21:44 by vabatist         ###   ########.fr       */
+/*   Updated: 2026/04/22 12:28:15 by vaires-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,14 @@
  * Calls load_textures(game) to load all required texture images into game.
  * If loading fails, prints error message.
  */
-void	init_texs(t_game *game)
+int	init_texs(t_game *game)
 {
 	if (!load_textures(game))
 	{
 		ft_printf("Error\nTexture loading failed.\n");
-		return ;
+		return (0);
 	}
+	return (1);
 }
 
 /**

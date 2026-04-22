@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vaires-m <vaires-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 13:00:47 by vaires-m          #+#    #+#             */
-/*   Updated: 2026/04/22 09:20:36 by vabatist         ###   ########.fr       */
+/*   Updated: 2026/04/22 13:39:40 by vaires-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,15 @@
  * boundary between two tiles. It determines the wall face based on the ray angle
  * and the position of the hit point within the tile, and sets the ray's wall_dir
  * and tex_x accordingly.
- */
+ * 
+ * tiles[] layout used by set_wall_face helpers:
+ * [0] hit_x_px      : hit position x in pixels
+ * [1] hit_y_px      : hit position y in pixels
+ * [2] hit_tile_x    : hit_x_px / TILE_LEN
+ * [3] hit_tile_y    : hit_y_px / TILE_LEN
+ * [4] prev_tile_x   : previous ray x tile coordinate
+ * [5] prev_tile_y   : previous ray y tile coordinate
+*/
 static void	handle_same_tile(t_ray *ray, float angle, int x_mod, int y_mod)
 {
 	float	dx;
@@ -50,7 +58,7 @@ static void	handle_same_tile(t_ray *ray, float angle, int x_mod, int y_mod)
  */
 static void	handle_ew_face(t_ray *ray, int *mods, int *tiles)
 {
-	if (tiles[0] < tiles[2])
+	if (tiles[2] < tiles[4])
 		ray->wall_dir = WALL_EAST;
 	else
 		ray->wall_dir = WALL_WEST;
@@ -64,7 +72,7 @@ static void	handle_ew_face(t_ray *ray, int *mods, int *tiles)
  */
 static void	handle_ns_face(t_ray *ray, int *mods, int *tiles)
 {
-	if (tiles[1] < tiles[3])
+	if (tiles[3] < tiles[5])
 		ray->wall_dir = WALL_SOUTH;
 	else
 		ray->wall_dir = WALL_NORTH;
@@ -92,17 +100,17 @@ void	set_wall_face(t_ray *ray, t_game *game, float angle, int *tiles)
 	if (tiles[2] == tiles[4] && tiles[3] == tiles[5])
 		handle_same_tile(ray, angle, mods[0], mods[1]);
 	else if (tiles[2] == tiles[4])
-		handle_ns_face(ray, mods, tiles + 2);
+		handle_ns_face(ray, mods, tiles);
 	else if (tiles[3] == tiles[5])
-		handle_ew_face(ray, mods, tiles + 2);
+		handle_ew_face(ray, mods, tiles);
 	else
 	{
 		yx_free = (game->map[tiles[5]][tiles[2]] != '1');
 		xy_free = (game->map[tiles[3]][tiles[4]] != '1');
 		if (!xy_free)
-			handle_ns_face(ray, mods, tiles + 2);
+			handle_ns_face(ray, mods, tiles);
 		else if (!yx_free)
-			handle_ew_face(ray, mods, tiles + 2);
+			handle_ew_face(ray, mods, tiles);
 		else
 			handle_same_tile(ray, angle, mods[0], mods[1]);
 	}

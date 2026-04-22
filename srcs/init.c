@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vaires-m <vaires-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 13:00:54 by vaires-m          #+#    #+#             */
-/*   Updated: 2026/04/22 11:15:52 by vabatist         ###   ########.fr       */
+/*   Updated: 2026/04/22 12:24:24 by vaires-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,25 @@ static void	init_game_keys(t_game *game)
  */
 static void	init_game_values(t_game *game)
 {
+	int	i;
+
 	game->rays_count = 0;
 	game->mlx_3d = NULL;
 	game->win_3d = NULL;
 	game->world_3d = NULL;
+	i = 0;
+	while (i < 4)
+	{
+		game->tex_wall[i].img = NULL;
+		game->tex_wall[i].adr = NULL;
+		game->tex_wall[i].bits_per_pixel = 0;
+		game->tex_wall[i].line_len = 0;
+		game->tex_wall[i].endian = 0;
+		game->tex_wall[i].w = 0;
+		game->tex_wall[i].h = 0;
+		game->tex_paths[i] = NULL;
+		i++;
+	}
 	game->map = NULL;
 	game->map_rows = 0;
 	game->map_cols = 0;

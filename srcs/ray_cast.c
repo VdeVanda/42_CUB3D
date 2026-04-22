@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_cast.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vaires-m <vaires-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 00:00:00 by vaires-m          #+#    #+#             */
-/*   Updated: 2026/04/22 10:34:28 by vabatist         ###   ########.fr       */
+/*   Updated: 2026/04/22 13:39:13 by vaires-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,16 @@ void	set_wall_face(t_ray *ray, t_game *game, float angle, int *tiles);
  * - Converts the previous ray position to previous tile coords
  * - Calls set_wall_face to determine which wall face (N/S/E/W) was hit
  * - Stores the hit distance
- */
+ * 
+ * packed[] layout used by cast_ray/apply_wall_hit:
+ * [0] hit_x_px    : current ray hit x in pixels
+ * [1] hit_y_px    : current ray hit y in pixels
+ * [2] unused
+ * [3] unused
+ * [4] prev_x_px   : previous ray x in pixels
+ * [5] prev_y_px   : previous ray y in pixels
+ * [6] dist_px     : ray travel distance in pixels
+*/
 static void	apply_wall_hit(t_game *g, t_ray *r, float ang, int *packed)
 {
 	int	tiles[6];

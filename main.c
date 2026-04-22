@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vaires-m <vaires-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 13:00:58 by vaires-m          #+#    #+#             */
-/*   Updated: 2026/04/22 09:23:45 by vabatist         ###   ########.fr       */
+/*   Updated: 2026/04/22 12:28:15 by vaires-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,8 @@ static int	init_game(t_game **game, char *map_file)
 	if (!(*game)->world_3d || !(*game)->world_3d->img)
 		return (ft_printf("Error\nWorld init failed.\n"), cleanup_game(*game),
 			1);
-	init_texs(*game);
-	if (!(*game)->tex_wall[0].img)
-		return (ft_printf("Error\nTexture loading failed.\n"),
-			cleanup_game(*game), 1);
+	if (!init_texs(*game))
+		return (cleanup_game(*game), 1);
 	return (0);
 }
 

@@ -6,15 +6,16 @@
 /*   By: vabatist <vabatist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 17:09:23 by vabatist          #+#    #+#             */
-/*   Updated: 2026/04/22 09:19:05 by vabatist         ###   ########.fr       */
+/*   Updated: 2026/04/22 13:48:02 by vabatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3D.h"
 
 /**
- * Checks if the map is properly enclosed by walls
- * and has exactly one player start.
+ * Returns 1 if a neighbor cell is considered "inside" the map
+ * (not void/outside).
+ * In this context, spaces, '\0' and '\n' are treated as invalid/void.
  */
 static int	is_valid_neighbor(char c)
 {
