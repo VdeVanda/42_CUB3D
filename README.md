@@ -161,6 +161,16 @@ The program displays `Error\n` followed by an explicit error message when:
 - **Make**: Build automation
 - **Norminette**: 42's coding standard checker
 
+### AI usage (what and where)
+
+AI tools were used for documentation support, specifically to:
+
+- Rewrite and structure this `README.md` in clear English
+- Reduce repetitive editing (formatting, section organization, wording)
+- Help explain and double-check the math/trigonometry concepts used in the project (ray directions, projection / wall height formulas, fisheye correction concepts)
+
+All features and fixes were implemented and validated manually by the authors inside the cub3D codebase.
+
 ## Project Structure
 
 ```
