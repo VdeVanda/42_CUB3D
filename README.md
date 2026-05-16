@@ -2,14 +2,8 @@
 
 #
 
-```text
- ██████╗██╗   ██╗██████╗ ██████╗ ██████╗ 
-██╔════╝██║   ██║██╔══██╗╚════██╗██╔══██╗
-██║     ██║   ██║██████╔╝ █████╔╝██║  ██║
-██║     ██║   ██║██╔══██╗ ╚═══██╗██║  ██║
-╚██████╗╚██████╔╝██████╔╝██████╔╝██████╔╝
- ╚═════╝ ╚═════╝ ╚═════╝ ╚═════╝ ╚═════╝ 
-```
+![so_long gameplay](assets/cub3D.png)
+
 <div align="center">
   <p><strong>A graphical representation project inspired by the world-famous Wolfenstein 3D game, built from scratch in C</strong></p>
   <br>
@@ -18,6 +12,16 @@
   <img src="https://img.shields.io/badge/Memory-Leak%20Free-brightgreen?style=flat-square" alt="No Memory Leaks">
   <img src="https://img.shields.io/badge/42-Norm%20Compliant-yellow?style=flat-square" alt="42 Norm">
 </div>
+
+#
+```text
+ ██████╗██╗   ██╗██████╗ ██████╗ ██████╗ 
+██╔════╝██║   ██║██╔══██╗╚════██╗██╔══██╗
+██║     ██║   ██║██████╔╝ █████╔╝██║  ██║
+██║     ██║   ██║██╔══██╗ ╚═══██╗██║  ██║
+╚██████╗╚██████╔╝██████╔╝██████╔╝██████╔╝
+ ╚═════╝ ╚═════╝ ╚═════╝ ╚═════╝ ╚═════╝ 
+```
 
 ## Description
 
